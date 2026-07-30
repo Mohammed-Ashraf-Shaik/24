@@ -25,12 +25,16 @@ const NAV_ITEMS = [
   {hash:"wishjar",label:"Wish Jar",icon:"fa-star"},
 ];
 
-const JOURNEY_ITEMS = [
-  {date:"2024-01-14",title:"The day we met",note:"The universe finally made sense."},
-  {date:"2024-06-15",title:"Our first adventure",note:"We got lost and found each other."},
-  {date:"2024-09-20",title:"The long phone call",note:"5 hours felt like 5 minutes."},
-  {date:"2025-02-14",title:"Valentine's Day",note:"The day I knew it was forever."},
-  {date:"2025-08-24",title:"Your birthday",note:"The day the world got its best thing."},
+/* ---------- Journey milestones (from reference) ---------- */
+const MILESTONES = [
+  {date:"the first hello",title:"we met.",note:"you looked away and i looked twice. i knew already."},
+  {date:"the first RIME night",title:"our table.",note:"we stayed until they turned the lights lower. you laughed too loud at something small."},
+  {date:"the first 'us'",title:"we became a thing.",note:"no announcement, no big moment — just quietly true one day."},
+  {date:"the first fight",title:"we survived it.",note:"we chose each other again the next morning. that's how i knew."},
+  {date:"the first gift",title:"you wrapped it in your handwriting.",note:"i still have the paper."},
+  {date:"the trips",title:"roads, windows, playlists.",note:"you fell asleep on my shoulder — the world was very quiet then."},
+  {date:"the today",title:"still here, still choosing you.",note:"and every day after this is another line on this list."},
+  {date:"the next chapter",title:"everything ahead.",note:"quiet mornings. loud kitchens. our little forever."},
 ];
 
 const FOOD_PHOTOS = [
@@ -40,6 +44,8 @@ const FOOD_PHOTOS = [
   {src:"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=70",cap:"candlelit noodles"},
   {src:"https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=70",cap:"colours on the plate, like you"},
   {src:"https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=800&q=70",cap:"we ordered too much again"},
+  {src:"https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&w=800&q=70",cap:"your favourite bite"},
+  {src:"https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&w=800&q=70",cap:"sunday morning, our kitchen"},
 ];
 
 const RIME_PHOTOS = [
@@ -51,26 +57,32 @@ const RIME_PHOTOS = [
   {src:"https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=800&q=70",cap:"one more please"},
 ];
 
-const GIFTS = [
-  {icon:"fa-shirt",name:"that hoodie",note:"i still wear it every night"},
-  {icon:"fa-mug-hot",name:"the mug",note:"coffee tastes better in it"},
-  {icon:"fa-book",name:"the little notebook",note:"full of us now"},
-  {icon:"fa-headphones",name:"the playlist",note:"every song is you"},
-  {icon:"fa-camera",name:"polaroid",note:"your smile, frozen in time"},
-  {icon:"fa-ring",name:"the bracelet",note:"never taking it off"},
+const GIFT_PHOTOS = [
+  {src:"https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=70",cap:"the little box you handed me"},
+  {src:"https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=800&q=70",cap:"wrapped in your handwriting"},
+  {src:"https://images.unsplash.com/photo-1608755728617-aefab37d2edd?auto=format&fit=crop&w=800&q=70",cap:"you knew exactly what i needed"},
+  {src:"https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?auto=format&fit=crop&w=800&q=70",cap:"the surprise one"},
+  {src:"https://images.unsplash.com/photo-1512909006721-3d6018887383?auto=format&fit=crop&w=800&q=70",cap:"with a bow, of course"},
+  {src:"https://images.unsplash.com/photo-1481794998337-2cef1f761e83?auto=format&fit=crop&w=800&q=70",cap:"small thing, big feeling"},
 ];
 
+/* ---------- Wish jar wishes (from reference) ---------- */
 const WISHES = [
-  "i wish we could freeze time when you laugh.",
-  "i wish for a thousand more late-night calls.",
-  "i wish you could see yourself the way i see you.",
-  "i wish for rainy days spent together doing nothing.",
-  "i wish to always be the reason you smile.",
-  "i wish for one more hug that lasts forever.",
-  "i wish we could revisit every first together.",
-  "i wish you knew how much you mean to me.",
-  "i wish for lazy mornings with you by my side.",
-  "i wish to write you letters until we're old.",
+  "you're the softest part of my day.",
+  "i hope your coffee is warm and your worries are small.",
+  "every song reminds me of you now — even the ones that don't.",
+  "you laugh, and my chest does that thing.",
+  "you're not a chapter — you're the whole spine.",
+  "if love had a colour, it'd be the one on your cheeks.",
+  "i'd choose you again, in every version of every life.",
+  "you make the ordinary feel like a keepsake.",
+  "your hands. that's it. that's the wish.",
+  "someday soon, and every day after — that's my plan.",
+  "you're allowed to be the main character today, ok?",
+  "even RIME's tables miss you when you're gone.",
+  "i saved you a seat, forever.",
+  "you are the reason i pay attention.",
+  "you smell like home to me.",
 ];
 
 const QUIZ_QS = [
@@ -96,14 +108,12 @@ const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 const pad=n=>String(n).padStart(2,"0");
 
-function toast(msg,type="info",ms=2600){
-  const w=$("#toasts");if(!w)return;
-  const el=document.createElement("div");
-  el.className="toast "+(type||"");
-  const ic=type==="success"?"fa-check":type==="error"?"fa-triangle-exclamation":"fa-heart";
-  el.innerHTML=`<i class="fa-solid ${ic}"></i><span>${esc(msg)}</span>`;
-  w.appendChild(el);
-  setTimeout(()=>{el.classList.add("leaving");setTimeout(()=>el.remove(),300)},ms);
+let toastTimer=null;
+function toast(msg,ms=2600){
+  const el=$("#toast-el");if(!el)return;
+  el.textContent=msg;el.hidden=false;el.style.animation="none";el.offsetHeight;el.style.animation="";
+  if(toastTimer)clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>{el.hidden=true},ms);
 }
 
 /* ==================== CURSOR ==================== */
@@ -114,8 +124,8 @@ function toast(msg,type="info",ms=2600){
   let tx=0,ty=0,rx=0,ry=0;
   document.addEventListener("mousemove",e=>{tx=e.clientX;ty=e.clientY;dot.style.transform=`translate(${tx}px,${ty}px) translate(-50%,-50%)`});
   (function tick(){rx+=(tx-rx)*.18;ry+=(ty-ry)*.18;ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;requestAnimationFrame(tick)})();
-  document.addEventListener("mouseover",e=>{if(e.target.closest("button,a,.hub-card,.g-cell,.mm-card,.quiz-opt,.jar-btn,.gift-card"))document.body.classList.add("cursor-hover")});
-  document.addEventListener("mouseout",e=>{if(e.target.closest("button,a,.hub-card,.g-cell,.mm-card,.quiz-opt,.jar-btn,.gift-card"))document.body.classList.remove("cursor-hover")});
+  document.addEventListener("mouseover",e=>{if(e.target.closest("button,a,.hub-card,.g-cell,.mm-card,.quiz-opt,.wj-jar,.gift-card"))document.body.classList.add("cursor-hover")});
+  document.addEventListener("mouseout",e=>{if(e.target.closest("button,a,.hub-card,.g-cell,.mm-card,.quiz-opt,.wj-jar,.gift-card"))document.body.classList.remove("cursor-hover")});
 })();
 
 /* ==================== CAT FULLSCREEN ==================== */
@@ -131,12 +141,8 @@ function toast(msg,type="info",ms=2600){
   check();
   window.addEventListener("resize",check);
   document.addEventListener("fullscreenchange",check);
-  $("#cat-fs-btn").addEventListener("click",async()=>{
-    try{await document.documentElement.requestFullscreen()}catch(e){}
-    modal.hidden=true;
-  });
+  $("#cat-fs-btn").addEventListener("click",async()=>{try{await document.documentElement.requestFullscreen()}catch(e){}modal.hidden=true});
   $("#cat-dismiss-btn").addEventListener("click",()=>{dismissed=true;modal.hidden=true});
-  // fallback gif
   const gif=$("#cat-gif");
   if(gif)gif.addEventListener("error",()=>{gif.src="https://media.tenor.com/2roX3uxz_68AAAAj/cat-kawaii.gif"});
 })();
@@ -147,7 +153,7 @@ function toast(msg,type="info",ms=2600){
   window.addEventListener("keydown",e=>{
     if(e.target&&(e.target.tagName==="INPUT"||e.target.tagName==="TEXTAREA"))return;
     buf=(buf+(e.key||"")).toLowerCase().slice(-8);
-    if(buf.includes("ashu")){sessionStorage.setItem("preview-mode","true");buf="";renderCurrentPage()}
+    if(buf.includes("ashu")){sessionStorage.setItem("preview-mode","true");buf="";toast("preview mode activated ♡");renderCurrentPage()}
   });
 })();
 
@@ -174,7 +180,7 @@ function renderCurrentPage(){
   const page=getPage();
   renderNav();
   app.innerHTML="";
-  app.className="view view-anim";
+  app.className="view";
   window.scrollTo({top:0,behavior:"smooth"});
   const pages={landing:pageLanding,hub:pageHub,journey:pageJourney,rime:pageRime,food:pageFood,gifts:pageGifts,game:pageGame,letter:pageLetter,wishjar:pageWishJar};
   const fn=pages[page]||pageLanding;
@@ -219,7 +225,16 @@ function pageLanding(){
   if(done||alreadyIn||preview){
     showGate();
   } else {
-    gateArea.innerHTML=`<p class="hero-sub" style="margin-top:40px;font-style:italic;color:var(--ink-mute)">the door opens when the countdown ends — or when you know the word.</p>`;
+    gateArea.innerHTML=`
+      <p class="hero-sub" style="margin-top:40px;font-style:italic;color:var(--ink-mute)">the door opens when the countdown reaches zero. patience, love.</p>
+    `;
+    // tiny hidden preview button
+    const pb=document.createElement("button");
+    pb.title="preview";
+    pb.setAttribute("aria-label","creator preview");
+    Object.assign(pb.style,{position:"fixed",bottom:"14px",right:"14px",zIndex:"30",width:"12px",height:"12px",borderRadius:"50%",background:"rgba(244,182,194,0.18)",border:"1px solid rgba(244,182,194,0.35)",cursor:"pointer",padding:"0"});
+    pb.addEventListener("click",()=>{sessionStorage.setItem("preview-mode","true");renderCurrentPage()});
+    document.body.appendChild(pb);
   }
 
   function showGate(){
@@ -241,6 +256,8 @@ function pageLanding(){
       const v=$("#gate-inp").value.trim().toLowerCase();
       if(v===MAIN_PASS){
         sessionStorage.setItem("main-unlocked","true");
+        if(typeof window.triggerFireworks==="function")window.triggerFireworks({bursts:3});
+        toast("welcome home, love ♡");
         go("hub");
       } else {
         $("#gate-msg").className="gate-error";
@@ -279,7 +296,7 @@ function pageHub(){
       ${c.locked?'<div class="hc-locked"><i class="fa-solid fa-lock"></i> needs a whisper</div>':""}
     `;
     card.addEventListener("click",()=>go(c.to));
-    card.addEventListener("mousemove",e=>{const r=card.getBoundingClientRect();card.style.setProperty("--mx",e.clientX-r.left+"px");card.style.setProperty("--my",e.clientY-r.top+"px")});
+    card.addEventListener("mousemove",e=>{const r=card.getBoundingClientRect();card.style.setProperty("--mx",(e.clientX-r.left)+"px");card.style.setProperty("--my",(e.clientY-r.top)+"px")});
     grid.appendChild(card);
   });
 }
@@ -288,15 +305,23 @@ function pageHub(){
 function pageJourney(){
   app.innerHTML=`
     <p class="eyebrow">how we got here</p>
-    <h1 class="hero-title">our little <em>journey</em>.</h1>
-    <p class="hero-sub">every step that led to us — the first glance, the first word, and everything that followed.</p>
-    <ol class="timeline" id="tl"></ol>
+    <h1 class="hero-title">our <em>journey</em>, one line at a time.</h1>
+    <p class="hero-sub">not every moment made the cut — only the ones i keep replaying.</p>
+    <ol class="jr-timeline" id="tl"></ol>
   `;
   const tl=$("#tl");
-  JOURNEY_ITEMS.forEach(it=>{
+  MILESTONES.forEach((m,i)=>{
     const li=document.createElement("li");
-    li.className="tl-item";
-    li.innerHTML=`<div class="tl-date">${esc(it.date)}</div><div class="tl-title">${esc(it.title)}</div><div class="tl-note">${esc(it.note)}</div>`;
+    li.className="jr-item";
+    li.style.animationDelay=`${i*90}ms`;
+    li.innerHTML=`
+      <div class="jr-dot"><i class="fa-solid fa-heart"></i></div>
+      <div class="jr-body">
+        <div class="jr-date">${esc(m.date)}</div>
+        <div class="jr-title">${esc(m.title)}</div>
+        <div class="jr-note">${esc(m.note)}</div>
+      </div>
+    `;
     tl.appendChild(li);
   });
 }
@@ -352,7 +377,7 @@ function pageRime(){
       const v=$("#rime-inp").value.trim();
       if(v===RIME_PASSES[step]){
         step++;
-        toast("unlocked ♡","success");
+        toast("unlocked ♡");
         renderRimeStep();
       } else {
         const m=$("#rime-msg");m.className="gate-error";m.textContent="not quite — think of the date, love";
@@ -379,14 +404,14 @@ function pageFood(){
 /* ==================== PAGE: GIFTS ==================== */
 function pageGifts(){
   app.innerHTML=`
-    <p class="eyebrow">every little thing</p>
+    <p class="eyebrow">everything you handed me</p>
     <h1 class="hero-title">gifts from <em>you</em>.</h1>
-    <p class="hero-sub">the things you gave me that i hold close — some you probably forgot about, but i never will.</p>
-    <div class="gifts-grid" id="gifts-grid"></div>
+    <p class="hero-sub">the box wasn't the gift — you were. still, here they are.</p>
+    <section class="gallery" id="gifts-gallery"></section>
   `;
-  const g=$("#gifts-grid");
-  GIFTS.forEach(it=>{
-    g.innerHTML+=`<div class="gift-card"><div class="gift-icon"><i class="fa-solid ${it.icon}"></i></div><div class="gift-name">${esc(it.name)}</div><div class="gift-note">${esc(it.note)}</div></div>`;
+  const g=$("#gifts-gallery");
+  GIFT_PHOTOS.forEach(p=>{
+    g.innerHTML+=`<figure class="g-cell"><img src="${esc(p.src)}" alt="${esc(p.cap)}" loading="lazy"/><figcaption class="g-cap">${esc(p.cap)}</figcaption></figure>`;
   });
 }
 
@@ -444,21 +469,44 @@ function pageLetter(){
 
 /* ==================== PAGE: WISH JAR ==================== */
 function pageWishJar(){
-  let lastIdx=-1;
+  let used=[];
   app.innerHTML=`
-    <p class="eyebrow">a little jar of hopes</p>
-    <h1 class="hero-title">the <em>wish</em> jar.</h1>
-    <p class="hero-sub">tap the jar and pull out something sweet. every wish is a tiny prayer for us.</p>
-    <div class="jar-wrap">
-      <button class="jar-btn" id="jar-btn"><i class="fa-solid fa-star"></i></button>
+    <p class="eyebrow">a little jar of feelings</p>
+    <h1 class="hero-title">tap the <em>jar</em>.</h1>
+    <p class="hero-sub">every tap, one little thing i've been meaning to say.</p>
+    <section class="wj-scene">
+      <svg class="wj-jar" id="wj-jar" width="200" height="240" viewBox="0 0 200 240" role="button" aria-label="Draw a wish">
+        <defs>
+          <linearGradient id="jarGlass" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="rgba(244,182,194,0.35)"/>
+            <stop offset="100%" stop-color="rgba(107,63,44,0.35)"/>
+          </linearGradient>
+          <linearGradient id="jarLid" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#e6c78a"/>
+            <stop offset="100%" stop-color="#b98d4a"/>
+          </linearGradient>
+        </defs>
+        <rect x="46" y="18" width="108" height="26" rx="6" fill="url(#jarLid)" stroke="#4a2e22" stroke-width="1.2"/>
+        <rect x="52" y="42" width="96" height="8" rx="3" fill="#6b3f2c"/>
+        <path d="M40 60 Q40 50 50 50 L150 50 Q160 50 160 60 L160 210 Q160 224 146 224 L54 224 Q40 224 40 210 Z" fill="url(#jarGlass)" stroke="#f4b6c2" stroke-width="1.2"/>
+        <text x="100" y="150" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="20" font-style="italic" fill="#f8ecdb" opacity="0.7">tap me</text>
+        <circle cx="75" cy="120" r="5" fill="#f4b6c2" opacity="0.3"/>
+        <circle cx="120" cy="100" r="4" fill="#e6c78a" opacity="0.3"/>
+        <circle cx="90" cy="180" r="6" fill="#e28c9d" opacity="0.25"/>
+        <circle cx="130" cy="170" r="3" fill="#f4b6c2" opacity="0.35"/>
+      </svg>
       <div id="wish-out"></div>
-    </div>
+    </section>
   `;
-  $("#jar-btn").addEventListener("click",()=>{
-    let idx;
-    do{idx=Math.floor(Math.random()*WISHES.length)}while(idx===lastIdx&&WISHES.length>1);
-    lastIdx=idx;
-    $("#wish-out").innerHTML=`<div class="wish-card">"${esc(WISHES[idx])}"</div>`;
+  const jar=$("#wj-jar");
+  jar.addEventListener("click",()=>{
+    jar.classList.remove("shake");void jar.offsetWidth;jar.classList.add("shake");
+    const pool=WISHES.filter((_,i)=>!used.includes(i));
+    if(pool.length===0){used=[];$("#wish-out").innerHTML=`<div class="wj-msg">(refilled the jar for you) tap again</div>`;return}
+    const pickInPool=Math.floor(Math.random()*pool.length);
+    const originalIdx=WISHES.indexOf(pool[pickInPool]);
+    used.push(originalIdx);
+    $("#wish-out").innerHTML=`<div class="wj-msg">"${esc(pool[pickInPool])}"</div>`;
   });
 }
 
@@ -487,8 +535,7 @@ function pageGame(){
   }
 
   function renderGame(){
-    const area=$("#game-area");
-    area.innerHTML="";
+    const area=$("#game-area");area.innerHTML="";
     if(tab==="memory")renderMemory(area);
     else if(tab==="quiz")renderQuiz(area);
     else renderScratch(area);
@@ -498,11 +545,10 @@ function pageGame(){
   function renderMemory(area){
     const deck=shuffle([...MEM_IMGS,...MEM_IMGS].map((src,id)=>({id,src})));
     let flipped=[],matched=new Set(),moves=0;
-    area.innerHTML=`<div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:12px"><span class="mm-status" id="mm-st">pairs: 0 / ${MEM_IMGS.length} · moves: 0</span><button class="btn btn-ghost" id="mm-rst"><i class="fa-solid fa-rotate"></i> restart</button></div><div class="mm-board" id="mm-board"></div>`;
+    area.innerHTML=`<div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><span class="mm-status" id="mm-st">pairs: 0 / ${MEM_IMGS.length} · moves: 0</span><button class="btn btn-ghost" id="mm-rst"><i class="fa-solid fa-rotate"></i> restart</button></div><div class="mm-board" id="mm-board"></div>`;
     const board=$("#mm-board");
     deck.forEach((c,idx)=>{
-      const card=document.createElement("div");
-      card.className="mm-card";card.dataset.idx=idx;
+      const card=document.createElement("div");card.className="mm-card";card.dataset.idx=idx;
       card.innerHTML=`<div class="mm-inner"><div class="mm-face back"><i class="fa-solid fa-heart"></i></div><div class="mm-face front"><img src="${c.src}" alt="memory" loading="lazy"/></div></div>`;
       card.addEventListener("click",()=>clickCard(idx,card));
       board.appendChild(card);
@@ -510,7 +556,7 @@ function pageGame(){
     $("#mm-rst").addEventListener("click",()=>renderMemory(area));
 
     function clickCard(idx,card){
-      if(flipped.length>=2)return;if(flipped.includes(idx))return;if(matched.has(deck[idx].src))return;
+      if(flipped.length>=2||flipped.includes(idx)||matched.has(deck[idx].src))return;
       flipped.push(idx);card.classList.add("flipped");
       if(flipped.length===2){
         moves++;updateSt();
@@ -519,7 +565,7 @@ function pageGame(){
           matched.add(deck[a].src);
           board.querySelectorAll(".mm-card").forEach(c=>{if([a,b].includes(+c.dataset.idx))c.classList.add("matched")});
           flipped=[];
-          if(matched.size===MEM_IMGS.length){done.memory=true;renderTabs();toast("memory complete ♡","success");if(typeof window.triggerFireworks==="function")window.triggerFireworks({bursts:2})}
+          if(matched.size===MEM_IMGS.length){done.memory=true;renderTabs();toast("memory complete ♡");if(typeof window.triggerFireworks==="function")window.triggerFireworks({bursts:2})}
         } else {
           setTimeout(()=>{board.querySelectorAll(".mm-card").forEach(c=>{if([a,b].includes(+c.dataset.idx))c.classList.remove("flipped")});flipped=[]},900);
         }
@@ -530,25 +576,24 @@ function pageGame(){
 
   /* QUIZ */
   function renderQuiz(area){
-    let qi=0,wrongs=0;
+    let qi=0;
     render();
     function render(){
       if(qi>=QUIZ_QS.length){
         area.innerHTML=`<div class="quiz-done"><h4>you know ashu by heart. ♡</h4><p>that's love, M. that's us.</p></div>`;
-        done.quiz=true;renderTabs();toast("quiz complete ♡","success");
+        done.quiz=true;renderTabs();toast("quiz complete ♡");
         if(typeof window.triggerFireworks==="function")window.triggerFireworks({bursts:2});
         return;
       }
-      const q=QUIZ_QS[qi];wrongs=0;
-      area.innerHTML=`<div class="quiz-q">${esc(q.q)}</div><div class="quiz-options" id="q-opts"></div><div class="quiz-hint" id="q-hint"></div>`;
+      const q=QUIZ_QS[qi];
+      area.innerHTML=`<div class="quiz-stage"><div class="quiz-progress">question ${qi+1} / ${QUIZ_QS.length}</div><div class="quiz-q">${esc(q.q)}</div><div class="quiz-options" id="q-opts"></div><div class="quiz-hint" id="q-hint"></div></div>`;
       const opts=$("#q-opts");
       q.opts.forEach((lbl,i)=>{
         const btn=document.createElement("button");btn.className="quiz-opt";btn.textContent=lbl;
         btn.addEventListener("click",()=>{
           if(i===q.ans){btn.classList.add("correct");opts.querySelectorAll(".quiz-opt").forEach(b=>b.disabled=true);setTimeout(()=>{qi++;render()},700)}
-          else{btn.classList.add("wrong");wrongs++;
-            const h=$("#q-hint");if(h)h.textContent="try again 💕";
-            if(wrongs>=2){opts.children[q.ans].classList.add("correct");if(h)h.textContent="take the highlighted one 💝"}
+          else{btn.classList.add("wrong");btn.disabled=true;
+            const h=$("#q-hint");if(h)h.textContent="not quite — try again 💕";
             setTimeout(()=>btn.classList.remove("wrong"),600);
           }
         });
@@ -559,7 +604,7 @@ function pageGame(){
 
   /* SCRATCH */
   function renderScratch(area){
-    area.innerHTML=`<div class="scratch-frame" id="sc-frame"><div class="scratch-under"><p class="scratch-msg">you are the reason i believe in forever, M ♡</p></div><canvas id="scratch-canvas"></canvas></div><div class="scratch-progress" id="sc-pct">0%</div>`;
+    area.innerHTML=`<div class="scratch-frame" id="sc-frame"><div class="scratch-under"><p class="scratch-msg">you are the reason i believe in forever, M ♡</p></div><canvas id="scratch-canvas" class="scratch-canvas"></canvas></div><div class="scratch-progress"><span id="sc-pct">0%</span><div class="scratch-bar"><div class="scratch-fill" id="sc-fill"></div></div></div>`;
     const cv=$("#scratch-canvas"),frame=$("#sc-frame");
     if(!cv||!frame)return;
     const rect=frame.getBoundingClientRect();
@@ -568,23 +613,24 @@ function pageGame(){
     cv.width=w*dpr;cv.height=h*dpr;cv.style.width=w+"px";cv.style.height=h+"px";
     const ctx=cv.getContext("2d");ctx.setTransform(dpr,0,0,dpr,0,0);
     const grad=ctx.createLinearGradient(0,0,w,h);
-    grad.addColorStop(0,"#8b5a67");grad.addColorStop(.5,"#b45067");grad.addColorStop(1,"#6d3a48");
+    grad.addColorStop(0,"#6b3f2c");grad.addColorStop(.5,"#b45067");grad.addColorStop(1,"#3b1c26");
     ctx.fillStyle=grad;ctx.fillRect(0,0,w,h);
-    ctx.fillStyle="rgba(248,236,219,.85)";ctx.font="italic 500 20px 'Cormorant Garamond',serif";
-    ctx.textBaseline="middle";ctx.textAlign="center";ctx.fillText("Scratch me M ♡",w/2,h/2);
+    ctx.fillStyle="rgba(248,236,219,.85)";ctx.font="italic 500 22px 'Cormorant Garamond',serif";
+    ctx.textBaseline="middle";ctx.textAlign="center";ctx.fillText("scratch me M ♡",w/2,h/2);
 
     let drawing=false,revealed=false;
     function getPos(e){const r=cv.getBoundingClientRect();const t=e.touches?e.touches[0]:e;return{x:t.clientX-r.left,y:t.clientY-r.top}}
-    function scratch(x,y){ctx.globalCompositeOperation="destination-out";ctx.beginPath();ctx.arc(x,y,22,0,Math.PI*2);ctx.fill();ctx.globalCompositeOperation="source-over";checkPct()}
+    function scratch(x,y){ctx.globalCompositeOperation="destination-out";ctx.beginPath();ctx.arc(x,y,24,0,Math.PI*2);ctx.fill();ctx.globalCompositeOperation="source-over";checkPct()}
     function checkPct(){
       if(revealed)return;
       try{
         const d=ctx.getImageData(0,0,cv.width,cv.height).data;
         let total=0,clear=0;
         for(let i=3;i<d.length;i+=32){total++;if(d[i]<12)clear++}
-        const pct=clear/total*100;
-        const el=$("#sc-pct");if(el)el.textContent=Math.round(pct)+"%";
-        if(pct>55){revealed=true;ctx.clearRect(0,0,cv.width,cv.height);done.scratch=true;renderTabs();toast("scratch complete ♡","success");if(typeof window.triggerFireworks==="function")window.triggerFireworks({bursts:2})}
+        const pct=Math.round(clear/total*100);
+        const el=$("#sc-pct");if(el)el.textContent=pct+"%";
+        const fill=$("#sc-fill");if(fill)fill.style.width=Math.min(pct*1.8,100)+"%";
+        if(pct>55){revealed=true;ctx.clearRect(0,0,cv.width,cv.height);done.scratch=true;renderTabs();toast("scratch complete ♡");if(typeof window.triggerFireworks==="function")window.triggerFireworks({bursts:2})}
       }catch(e){}
     }
     cv.addEventListener("mousedown",e=>{e.preventDefault();drawing=true;const p=getPos(e);scratch(p.x,p.y)});
