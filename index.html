@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0d0a0f" />
+  <meta name="description" content="for M ♡ from ashu — a digital love letter." />
+  <title>for M ♡ from ashu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Petal/particle canvas -->
+  <canvas id="petal-canvas" aria-hidden="true"></canvas>
+
+  <!-- Floating M background -->
+  <div id="m-bg" class="m-background" aria-hidden="true">M</div>
+
+  <!-- Custom cursor -->
+  <div id="cursor-dot" class="cursor-dot" aria-hidden="true"></div>
+  <div id="cursor-ring" class="cursor-ring" aria-hidden="true"></div>
+
+  <!-- Cat fullscreen prompt -->
+  <div id="cat-modal" class="cat-modal" hidden>
+    <div class="cat-card">
+      <img src="https://media.tenor.com/QSDcbFgTilAAAAAi/purr-cat.gif" alt="Cute cat" id="cat-gif" />
+      <h4>please open full screen babe...</h4>
+      <p>it looks so much prettier when you can see the whole thing</p>
+      <div class="cat-btns">
+        <button class="btn btn-primary" id="cat-fs-btn"><i class="fa-solid fa-expand"></i> open fullscreen</button>
+        <button class="btn btn-ghost" id="cat-dismiss-btn">not now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top bar (shown after main unlock) -->
+  <header class="topbar" id="topbar" hidden>
+    <div class="brand" id="brand-home">
+      <i class="fa-solid fa-heart"></i>
+      <span>for <em>M</em>, from ashu</span>
+    </div>
+    <nav class="nav-btns" id="nav-btns"></nav>
+  </header>
+
+  <!-- All pages render here -->
+  <main id="app" class="view"></main>
+
+  <!-- Toasts -->
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <!-- Scripts -->
+  <script src="canvas-effects.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
