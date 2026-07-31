@@ -26,12 +26,14 @@
   --hand: "Caveat", cursive;
   --ease-out: cubic-bezier(.2,.7,.2,1);
 }
-#cat-gif{
+.cat-card img,
+.cat-card video{
     width:180px;
-    height:auto;
+    height:180px;
+    object-fit:cover;
     display:block;
-    margin:0 auto 15px;
-    border-radius:12px;
+    margin:0 auto 16px;
+    border-radius:14px;
 }
 
 /* ========= Reset ========= */
