@@ -26,6 +26,13 @@
   --hand: "Caveat", cursive;
   --ease-out: cubic-bezier(.2,.7,.2,1);
 }
+#cat-gif{
+    width:180px;
+    height:auto;
+    display:block;
+    margin:0 auto 15px;
+    border-radius:12px;
+}
 
 /* ========= Reset ========= */
 * { box-sizing: border-box; }

@@ -8,10 +8,10 @@ const LETTER_PASS = "ashu";
 const RIME_PASSES = ["1","2","3","4"];
 
 const RIME_LABELS = [
-  "1st meet — the very first time",
-  "2nd meet — the one after",
-  "3rd meet — getting braver",
-  "4th meet — feeling like ours"
+  "1st meet — the very first time - VIOLET - HMM SOMTG HAPPENED",
+  "2nd meet — the one after - YELLOW - HMM IDK BA",
+  "3rd meet — getting braver - BISCUIT - HMM QUIT ONE",
+  "4th meet — feeling like ours - GREEN - NO WORDS ONLY FINGERS"
 ];
 
 const NAV_ITEMS = [
@@ -86,10 +86,10 @@ const WISHES = [
 ];
 
 const QUIZ_QS = [
-  {q:"What does ashu love the most about M?",opts:["Your smile","Your laugh","Your eyes","Everything about you ♡"],ans:3},
-  {q:"What's our favorite thing to do together?",opts:["Late night talks","Going on adventures","Being silly together","All of the above ♡"],ans:3},
-  {q:"When ashu thinks of M, what comes to mind first?",opts:["Butterflies","Home","Happiness","Forever ♡"],ans:3},
-  {q:"How much does ashu love M?",opts:["A lot","More than words can say","To the moon and back","All of the above × infinity ♡"],ans:3},
+  {q:"What does ashu love the most about Maha?",opts:["Your smile","Your nose","Your eyes","Everything about you ♡"],ans:2},
+  {q:"What's our favorite thing to do together?",opts:["Late night talks","Going on adventures","Being Happy together","All of the above ♡"],ans:3},
+  {q:"When ashu thinks of Maha, what comes to mind first?",opts:["Butterflies","Home","Happiness","Forever ♡"],ans:1},
+  {q:"How much does ashu love Maha?",opts:["A lot","More than words can say","To the moon and stars","less than Arey I Love U more than u love me ♡"],ans:3},
 ];
 
 const MEM_IMGS = [
