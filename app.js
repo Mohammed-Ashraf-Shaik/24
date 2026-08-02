@@ -1,6 +1,5 @@
 (function(){
 "use strict";
-
 /* ==================== CONFIG ==================== */
 const TARGET_DATE = new Date("2026-08-24T00:00:00").getTime();
 const MAIN_PASS = "ashuashu";
@@ -49,14 +48,43 @@ const FOOD_PHOTOS = [
 ];
 
 const RIME_PHOTOS = [
-  {src:"https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=70",cap:"table for two, forever"},
-  {src:"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=70",cap:"the corner we always pick"},
-  {src:"https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=800&q=70",cap:"your favourite drink"},
-  {src:"https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=800&q=70",cap:"the light on your face"},
-  {src:"https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=800&q=70",cap:"warm evenings"},
-  {src:"https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=800&q=70",cap:"one more please"},
+    {src:"assets/rime/1.jpg",cap:"Our first RIME ❤️"},
+    {src:"assets/rime/2.jpg",cap:"Beautiful B ღ memory"},
+    {src:"assets/rime/111.jpg",cap:"Edi uke peta 💞(1 n 2 pic lo nenu ravadam ledu ani) ❤️"},
+    {src:"assets/rime/22.jpg",cap:"So Sweet ♥ kada"},
+    {src:"assets/rime/3.jpg",cap:"Just us ❤️"},
+    {src:"assets/rime/4.jpg",cap:"My favorite 💗 moment"},
+    {src:"assets/rime/5.jpg",cap:"This pic 🤎 is good another vadu le"},
+    {src:"assets/rime/6.jpg",cap:"Another 3 beautiful memory "},
+    {src:"assets/rime/7.jpg",cap:"So shy haha ❤️"},
+    {src:"assets/rime/8.jpg",cap:"My favorite pic too"},
+    {src:"assets/rime/9.jpg",cap:"This onr kuda❤️"},
+    {src:"assets/rime/10.jpg",cap:"Another 4 beautiful memory"},
+    {src:"assets/rime/11.jpg",cap:"Just us exploring ❤️"},
+    {src:"assets/rime/12.png",cap:"F enough?"}
 ];
-
+const MORE_RIME_PHOTOS = [
+    {src:"assets/rime2/1.jpg",cap:"🖤🤎",type:"landscape"},
+    {src:"assets/rime2/2.jpg",cap:"🖤🤎",type:"landscape"},
+    {src:"assets/rime2/3.jpg",cap:"🖤🤎",type:"landscape"},
+    {src:"assets/rime2/4.jpg",cap:"🖤🤎",type:"landscape"},
+    {src:"assets/rime2/5.jpg",cap:"🖤🤎",type:"landscape"},
+    {src:"assets/rime2/6.jpg",cap:"🖤🤎",type:"landscape"},
+    {src:"assets/rime2/7.jpg",cap:"🖤🤎",type:"landscape"},
+    {src:"assets/rime2/8.jpg",cap:"🖤🤎",type:"portrait"},
+    {src:"assets/rime2/9.jpg",cap:"🖤🤎",type:"landscape"},
+    {src:"assets/rime2/10.jpg",cap:"🖤🤎",type:"portrait"},
+    {src:"assets/rime2/11.jpg",cap:"🖤🤎",type:"landscape"},
+    {src:"assets/rime2/12.jpg",cap:"🖤🤎",type:"landscape"},
+    {src:"assets/rime2/13.jpg",cap:"🖤🤎",type:"landscape"},
+    {src:"assets/rime2/14.jpg",cap:"🖤🤎",type:"landscape"},
+    {src:"assets/rime2/15.jpg",cap:"🖤🤎",type:"landscape"},
+    {src:"assets/rime2/16.jpg",cap:"🖤🤎",type:"portrait"},
+    {src:"assets/rime2/17.jpg",cap:"🖤🤎",type:"portrait"},
+    {src:"assets/rime2/18.jpg",cap:"🖤🤎",type:"portrait"},
+    {src:"assets/rime2/19.jpg",cap:"🖤🤎",type:"portrait"},
+    {src:"assets/rime2/20.jpg",cap:"🖤🤎",type:"portrait"}
+];
 const GIFT_PHOTOS = [
   {src:"https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=70",cap:"the little box you handed me"},
   {src:"https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=800&q=70",cap:"wrapped in your handwriting"},
@@ -222,9 +250,11 @@ function pageLanding(){
   const done=startCountdown(cdGrid);
   const gateArea=$("#gate-area");
 
-  if(done||alreadyIn||preview){
+if(done||alreadyIn||preview){
+
     showGate();
-  } else {
+
+} else {
     gateArea.innerHTML=`
       <p class="hero-sub" style="margin-top:40px;font-style:italic;color:var(--ink-mute)">the door opens when the countdown reaches zero. patience, love.</p>
     `;
@@ -257,7 +287,7 @@ function pageLanding(){
       if(v===MAIN_PASS){
         sessionStorage.setItem("main-unlocked","true");
         if(typeof window.triggerFireworks==="function")window.triggerFireworks({bursts:3});
-        toast("welcome home, love ♡");
+        toast("Finally it's your day.., love ♡");
         go("hub");
       } else {
         $("#gate-msg").className="gate-error";
@@ -332,7 +362,7 @@ function pageRime(){
   app.innerHTML=`
     <p class="eyebrow">at the place we call ours</p>
     <h1 class="hero-title">every time we met at <em>RIME</em>.</h1>
-    <p class="hero-sub">four little numbers, four little days. type the date of each meeting — one at a time. (format: dd)</p>
+    <p class="hero-sub">four little numbers, four little days. type the date of each meeting — one at a time. (format: dd) remember mental </p>
     <div class="stage-track" id="rime-dots"></div>
     <div id="rime-area"></div>
   `;
@@ -348,16 +378,167 @@ function pageRime(){
     const area=$("#rime-area");
     if(step>=RIME_PASSES.length){
       area.innerHTML=`
-        <h2 class="section-title" style="margin-top:40px">the four evenings at RIME</h2>
+        <h2 class="section-title" style="margin-top:40px">the four Goood afternoons at RIME</h2>
         <p class="section-sub">each frame, a night we didn't want to end.</p>
         <div class="gallery" id="rime-gallery"></div>
       `;
       const g=$("#rime-gallery");
-      RIME_PHOTOS.forEach(p=>{
-        g.innerHTML+=`<figure class="g-cell"><img src="${esc(p.src)}" alt="${esc(p.cap)}" loading="lazy"/><figcaption class="g-cap">${esc(p.cap)}</figcaption></figure>`;
-      });
-      if(typeof window.triggerFireworks==="function")window.triggerFireworks({bursts:2});
-      return;
+   RIME_PHOTOS.forEach(p=>{
+    g.innerHTML+=`<figure class="g-cell">
+        <img src="${esc(p.src)}" alt="${esc(p.cap)}" loading="lazy"/>
+        <figcaption class="g-cap">${esc(p.cap)}</figcaption>
+    </figure>`;
+});
+
+g.innerHTML += `
+<div class="memory-box" id="memory-box">
+
+    <div class="box-lid"></div>
+
+    <div class="box-base">
+        <div class="box-glow"></div>
+        <i class="fa-solid fa-heart"></i>
+
+    </div>
+
+    <h3>Our Memory Box ❤️</h3>
+
+    <p>
+        Some memories are too precious
+        to leave outside...
+    </p>
+
+    <button class="btn btn-primary" id="open-box">
+
+        Open Box
+
+    </button>
+
+</div>
+`;
+g.innerHTML += `
+<div id="more-gallery" class="more-gallery" hidden>
+
+    <h2 class="section-title">More Beautiful Memories ❤️</h2>
+
+    <div class="gallery" id="more-gallery-grid"></div>
+
+</div>
+`;
+
+document.getElementById("open-box").onclick = () => {
+
+    const box = document.getElementById("memory-box");
+    const grid = document.getElementById("more-gallery-grid");
+    const moreGallery = document.getElementById("more-gallery");
+
+    box.classList.add("shake");
+
+    setTimeout(() => {
+
+        box.classList.remove("shake");
+        box.classList.add("open");
+
+        createParticles(box);
+
+        if(typeof window.triggerFireworks==="function")
+            window.triggerFireworks({bursts:2});
+
+        setTimeout(() => {
+
+            moreGallery.hidden = false;
+            grid.innerHTML = "";
+
+            const cards = MORE_RIME_PHOTOS.map((p) => {
+                const card = document.createElement("figure");
+                card.className = `g-cell ${p.type || ""}`;
+                card.innerHTML = `
+                    <img src="${esc(p.src)}" alt="${esc(p.cap)}" loading="lazy">
+                    <figcaption class="g-cap">${esc(p.cap)}</figcaption>
+                `;
+                card.style.opacity = "0"; 
+                grid.appendChild(card);
+                return card;
+            });
+
+            // Force layout calculation
+            const _ = grid.offsetHeight;
+
+            const boxRect = box.getBoundingClientRect();
+            const boxCenterX = boxRect.left + boxRect.width / 2;
+            const boxCenterY = boxRect.top + boxRect.height / 2;
+
+            let settledCount = 0;
+
+            cards.forEach((card, i) => {
+                setTimeout(() => {
+                    const finalRect = card.getBoundingClientRect();
+                    const finalCenterX = finalRect.left + finalRect.width / 2;
+                    const finalCenterY = finalRect.top + finalRect.height / 2;
+                    
+                    const deltaX = boxCenterX - finalCenterX;
+                    const deltaY = boxCenterY - finalCenterY;
+                    
+                    card.style.transition = "none";
+                    card.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(0.2) rotate(-10deg)`;
+                    card.style.opacity = "0";
+                    
+                    // Force repaint
+                    const __ = card.offsetHeight;
+                    
+                    card.style.transition = "transform 1s cubic-bezier(0.25, 1, 0.35, 1), opacity 0.8s ease";
+                    
+                    requestAnimationFrame(() => {
+                        card.style.opacity = "1";
+                        card.style.transform = "translate(0px, 0px) scale(1) rotate(0deg)";
+                    });
+                    
+                    setTimeout(() => {
+                        card.style.transition = "";
+                        card.style.transform = "";
+                        settledCount++;
+                        
+                        if (settledCount === cards.length) {
+                            box.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+                            box.style.opacity = "0";
+                            box.style.transform = "scale(0.8)";
+                            setTimeout(() => { box.remove(); }, 600);
+                        }
+                    }, 1000);
+                    
+                }, i * 150);
+            });
+
+        }, 800);
+
+    }, 400);
+
+};
+
+function createParticles(box) {
+    const boxRect = box.getBoundingClientRect();
+    const count = 30;
+    for (let i = 0; i < count; i++) {
+        const p = document.createElement("div");
+        p.className = "gold-particle";
+        const x = boxRect.left + boxRect.width * 0.2 + Math.random() * (boxRect.width * 0.6);
+        const y = boxRect.top + 20 + Math.random() * 20;
+        p.style.left = x + "px";
+        p.style.top = y + "px";
+        
+        const driftX = (Math.random() - 0.5) * 200;
+        const driftY = -100 - Math.random() * 200;
+        p.style.setProperty("--x", driftX + "px");
+        p.style.setProperty("--y", driftY + "px");
+        
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 1800);
+    }
+}
+if(typeof window.triggerFireworks==="function")
+    window.triggerFireworks({bursts:2});
+
+return;
     }
     area.innerHTML=`
       <div class="gate-wrap">
@@ -377,8 +558,9 @@ function pageRime(){
       const v=$("#rime-inp").value.trim();
       if(v===RIME_PASSES[step]){
         step++;
-        toast("unlocked ♡");
+        toast("NICE UNLOCKED haha ♡");
         renderRimeStep();
+        if ($("#rime-inp")) $("#rime-inp").focus();
       } else {
         const m=$("#rime-msg");m.className="gate-error";m.textContent="not quite — think of the date, love";
         setTimeout(()=>{if(m){m.className="gate-hint";m.textContent="just the day — like 12 or 07"}},2400);
@@ -604,7 +786,7 @@ function pageGame(){
 
   /* SCRATCH */
   function renderScratch(area){
-    area.innerHTML=`<div class="scratch-frame" id="sc-frame"><div class="scratch-under"><p class="scratch-msg">you are the reason i believe in forever, M ♡</p></div><canvas id="scratch-canvas" class="scratch-canvas"></canvas></div><div class="scratch-progress"><span id="sc-pct">0%</span><div class="scratch-bar"><div class="scratch-fill" id="sc-fill"></div></div></div>`;
+    area.innerHTML=`<div class="scratch-frame" id="sc-frame"><div class="scratch-under"><p class="scratch-msg">Some promises are meant to be proven ♡</p></div><canvas id="scratch-canvas" class="scratch-canvas"></canvas></div><div class="scratch-progress"><span id="sc-pct">0%</span><div class="scratch-bar"><div class="scratch-fill" id="sc-fill"></div></div></div>`;
     const cv=$("#scratch-canvas"),frame=$("#sc-frame");
     if(!cv||!frame)return;
     const rect=frame.getBoundingClientRect();
