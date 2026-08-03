@@ -17,7 +17,7 @@ const NAV_ITEMS = [
   {hash:"hub",label:"Home",icon:"fa-heart"},
   {hash:"journey",label:"Journey",icon:"fa-road"},
   {hash:"rime",label:"RIME",icon:"fa-map-pin"},
-  {hash:"food",label:"Food",icon:"fa-utensils"},
+  {hash:"hands",label:"Our Hands",icon:"fa-hand-holding-heart"},
   {hash:"gifts",label:"Gifts",icon:"fa-gift"},
   {hash:"game",label:"Game",icon:"fa-puzzle-piece"},
   {hash:"letter",label:"Letter",icon:"fa-envelope-open-text"},
@@ -36,15 +36,43 @@ const MILESTONES = [
   {date:"the next chapter",title:"everything ahead.",note:"quiet mornings. loud kitchens. our little forever."},
 ];
 
-const FOOD_PHOTOS = [
-  {src:"https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=70",cap:"the first plate we shared"},
-  {src:"https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=800&q=70",cap:"you smiled with your mouth full"},
-  {src:"https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=70",cap:"dessert first? always."},
-  {src:"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=70",cap:"candlelit noodles"},
-  {src:"https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=70",cap:"colours on the plate, like you"},
-  {src:"https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=800&q=70",cap:"we ordered too much again"},
-  {src:"https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&w=800&q=70",cap:"your favourite bite"},
-  {src:"https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&w=800&q=70",cap:"sunday morning, our kitchen"},
+const HANDS_PHOTOS = [
+  {src:"assets/hands/IMG-20250617-WA0004.jpg",cap:"our hands ❤️"},
+  {src:"assets/hands/IMG-20250617-WA0015.jpg",cap:"holding on"},
+  {src:"assets/hands/IMG-20250822-WA0103.jpg",cap:"never letting go"},
+  {src:"assets/hands/IMG-20250823-WA0017.jpg",cap:"always"},
+  {src:"assets/hands/IMG-20250823-WA0019.jpg",cap:"safe with you"},
+  {src:"assets/hands/IMG-20250823-WA0021.jpg",cap:"my favourite place"},
+  {src:"assets/hands/IMG-20250823-WA0030.jpg",cap:"together"},
+  {src:"assets/hands/IMG-20250824-WA0044.jpg",cap:"our hands ❤️"},
+  {src:"assets/hands/IMG-20250824-WA0045.jpg",cap:"holding on"},
+  {src:"assets/hands/IMG-20250824-WA0094.jpg",cap:"never letting go"},
+  {src:"assets/hands/IMG-20250824-WA0095.jpg",cap:"always"},
+  {src:"assets/hands/IMG-20250824-WA0123.jpg",cap:"safe with you"},
+  {src:"assets/hands/IMG-20250824-WA0124.jpg",cap:"my favourite place"},
+  {src:"assets/hands/IMG-20251013-WA0215.jpg",cap:"together"},
+  {src:"assets/hands/IMG-20251123-WA0003.jpg",cap:"our hands ❤️"},
+  {src:"assets/hands/IMG-20251124-WA0010.jpg",cap:"holding on"},
+  {src:"assets/hands/IMG-20251130-WA0007.jpg",cap:"never letting go"},
+  {src:"assets/hands/IMG-20260119-WA0012.jpg",cap:"always"},
+  {src:"assets/hands/IMG-20260205-WA0001.jpg",cap:"safe with you"},
+  {src:"assets/hands/IMG-20260417-WA0011.jpg",cap:"my favourite place"},
+  {src:"assets/hands/IMG-20260503-WA0025.jpg",cap:"together"},
+  {src:"assets/hands/IMG-20260511-WA0002.jpg",cap:"our hands ❤️"},
+  {src:"assets/hands/IMG-20260516-WA0018.jpg",cap:"holding on"},
+  {src:"assets/hands/IMG-20260516-WA0024.jpg",cap:"never letting go"},
+  {src:"assets/hands/IMG-20260529-WA0000.jpg",cap:"always"},
+  {src:"assets/hands/IMG-20260605-WA0392.jpg",cap:"safe with you"},
+  {src:"assets/hands/IMG-20260605-WA0432.jpg",cap:"my favourite place"},
+  {src:"assets/hands/IMG-20260605-WA0475.jpg",cap:"together"},
+  {src:"assets/hands/IMG-20260605-WA0496.jpg",cap:"our hands ❤️"},
+  {src:"assets/hands/IMG-20260617-WA0091.jpg",cap:"holding on"},
+  {src:"assets/hands/IMG-20260629-WA0034.jpg",cap:"never letting go"},
+  {src:"assets/hands/IMG-20260630-WA0186.jpg",cap:"always"},
+  {src:"assets/hands/IMG-20260630-WA0187.jpg",cap:"safe with you"},
+  {src:"assets/hands/Screenshot 2026-07-22 204036.png",cap:"my favourite place"},
+  {src:"assets/hands/Screenshot_20251031_164833.jpg",cap:"together"},
+  {src:"assets/hands/Snapchat-2066195542.jpg",cap:"our hands ❤️"},
 ];
 
 const RIME_PHOTOS = [
@@ -210,7 +238,7 @@ function renderCurrentPage(){
   app.innerHTML="";
   app.className="view";
   window.scrollTo({top:0,behavior:"smooth"});
-  const pages={landing:pageLanding,hub:pageHub,journey:pageJourney,rime:pageRime,food:pageFood,gifts:pageGifts,game:pageGame,letter:pageLetter,wishjar:pageWishJar};
+  const pages={landing:pageLanding,hub:pageHub,journey:pageJourney,rime:pageRime,hands:pageHands,gifts:pageGifts,game:pageGame,letter:pageLetter,wishjar:pageWishJar};
   const fn=pages[page]||pageLanding;
   if(page!=="landing"&&!isUnlocked()){go("landing");return}
   fn();
@@ -220,18 +248,19 @@ window.addEventListener("hashchange",renderCurrentPage);
 
 /* ==================== COUNTDOWN ==================== */
 let cdTimer=null;
-function startCountdown(el){
+function startCountdown(el, onTickOver){
   if(cdTimer)clearInterval(cdTimer);
-  function render(){
+  function render(isInit){
     const diff=Math.max(0,TARGET_DATE-Date.now());
     const d=Math.floor(diff/864e5),h=Math.floor(diff/36e5%24),m=Math.floor(diff/6e4%60),s=Math.floor(diff/1e3%60);
     const done=diff===0;
     el.innerHTML=[{n:d,l:"days"},{n:pad(h),l:"hours"},{n:pad(m),l:"minutes"},{n:pad(s),l:"seconds"}]
       .map(c=>`<div class="cd-cell"><span class="cd-num">${c.n}</span><span class="cd-label">${c.l}</span></div>`).join("");
+    if(done && !isInit && onTickOver) onTickOver();
     return done;
   }
-  const done=render();
-  if(!done)cdTimer=setInterval(()=>{if(render()&&cdTimer)clearInterval(cdTimer)},1000);
+  const done=render(true);
+  if(!done)cdTimer=setInterval(()=>{if(render(false)&&cdTimer)clearInterval(cdTimer)},1000);
   return done;
 }
 
@@ -247,14 +276,40 @@ function pageLanding(){
     <div id="gate-area"></div>
   `;
   const cdGrid=$("#cd-grid");
-  const done=startCountdown(cdGrid);
   const gateArea=$("#gate-area");
+  
+  function playAnimationAndShowGate() {
+    if(sessionStorage.getItem("bday-anim-seen")) {
+      showGate();
+      return;
+    }
+    sessionStorage.setItem("bday-anim-seen", "true");
+    
+    gateArea.innerHTML = "";
+    
+    const overlay = document.createElement("div");
+    overlay.className = "birthday-overlay";
+    overlay.innerHTML = `<div class="bday-text">HAPPY BIRTHDAY<br>MAHA</div>`;
+    document.body.appendChild(overlay);
+    
+    setTimeout(() => {
+      overlay.classList.add("fade-out");
+      showGate();
+      setTimeout(() => overlay.remove(), 1500);
+    }, 5500);
+  }
 
-if(done||alreadyIn||preview){
+  const done=startCountdown(cdGrid, () => {
+    playAnimationAndShowGate();
+  });
 
-    showGate();
-
-} else {
+  if(done||alreadyIn||preview){
+    if(done && !alreadyIn && !preview) {
+      playAnimationAndShowGate();
+    } else {
+      showGate();
+    }
+  } else {
     gateArea.innerHTML=`
       <p class="hero-sub" style="margin-top:40px;font-style:italic;color:var(--ink-mute)">the door opens when the countdown reaches zero. patience, love.</p>
     `;
@@ -303,7 +358,7 @@ function pageHub(){
   const CARDS=[
     {to:"journey",title:"our journey",desc:"the little map of how we got here.",icon:"fa-road"},
     {to:"rime",title:"at RIME",desc:"the place we always meet — enter the four dates.",icon:"fa-map-pin",locked:true},
-    {to:"food",title:"what we ate",desc:"the little tables, the shared bites.",icon:"fa-utensils"},
+    {to:"hands",title:"our hands",desc:"holding on to you, never letting go.",icon:"fa-hand-holding-heart",locked:true},
     {to:"gifts",title:"gifts from you",desc:"every little thing you gave me.",icon:"fa-gift"},
     {to:"game",title:"our little games",desc:"memory, quiz and a scratch card.",icon:"fa-puzzle-piece"},
     {to:"letter",title:"a handwritten letter",desc:"for your eyes only. (whisper 'ashu')",icon:"fa-envelope-open-text",locked:true},
@@ -569,16 +624,50 @@ return;
   }
 }
 
-/* ==================== PAGE: FOOD ==================== */
-function pageFood(){
+/* ==================== PAGE: HANDS ==================== */
+function pageHands(){
+  const ok=sessionStorage.getItem("hands-unlocked")==="true";
   app.innerHTML=`
-    <p class="eyebrow">every table with you</p>
-    <h1 class="hero-title">the things we <em>ate</em> together.</h1>
-    <p class="hero-sub">food tastes better when you're across the table. here are some of the plates that had you in the background.</p>
-    <section class="gallery" id="food-gallery"></section>
+    <p class="eyebrow">every time we touch</p>
+    <h1 class="hero-title">our <em>hands</em> together.</h1>
+    <p class="hero-sub">my favourite place is holding onto you. here are all the times our hands found each other.</p>
+    <div id="hands-area"></div>
   `;
-  const g=$("#food-gallery");
-  FOOD_PHOTOS.forEach(p=>{
+  if(ok){showHandsGallery();return}
+  
+  const area=$("#hands-area");
+  area.innerHTML=`
+    <div class="gate-wrap">
+      <h3>unlock our hands</h3>
+      <p>ur mom mobile no</p>
+      <form id="hands-form">
+        <input class="gate-input" type="password" placeholder="••••••••••" id="hands-inp" autofocus />
+        <div style="display:flex;justify-content:center;margin-top:16px">
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-lock-open"></i> unlock</button>
+        </div>
+        <div id="hands-msg" class="gate-hint">enter the 10 digits</div>
+      </form>
+    </div>
+  `;
+  
+  $("#hands-form").addEventListener("submit",e=>{
+    e.preventDefault();
+    const v=$("#hands-inp").value.trim();
+    if(v==="8500686769"){
+      sessionStorage.setItem("hands-unlocked","true");
+      showHandsGallery();
+    } else {
+      const m=$("#hands-msg");m.className="gate-error";m.textContent="that's not it, try again";
+      setTimeout(()=>{if(m){m.className="gate-hint";m.textContent="enter the 10 digits"}},2400);
+    }
+  });
+}
+
+function showHandsGallery() {
+  const area=$("#hands-area");
+  area.innerHTML=`<section class="gallery" id="hands-gallery"></section>`;
+  const g=$("#hands-gallery");
+  HANDS_PHOTOS.forEach(p=>{
     g.innerHTML+=`<figure class="g-cell"><img src="${esc(p.src)}" alt="${esc(p.cap)}" loading="lazy"/><figcaption class="g-cap">${esc(p.cap)}</figcaption></figure>`;
   });
 }
