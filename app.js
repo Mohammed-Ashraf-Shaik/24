@@ -445,176 +445,140 @@ function pageRime(){
 
   function renderDots(){
     const dots=$("#rime-dots");
+    if(!dots)return;
     dots.innerHTML=RIME_PASSES.map((_,i)=>`<div class="stage-dot ${i<step?"done":i===step?"active":""}"></div>`).join("");
   }
 
   function renderRimeStep(){
     renderDots();
     const area=$("#rime-area");
+    if(!area)return;
+
     if(step>=RIME_PASSES.length){
       area.innerHTML=`
         <h2 class="section-title" style="margin-top:40px">the four Goood afternoons at RIME</h2>
         <p class="section-sub">each frame, a night we didn't want to end.</p>
-        <div class="gallery" id="rime-gallery"></div>
+        <div class="gallery" id="rime-gallery">
+          ${RIME_PHOTOS.map(p=>`
+            <figure class="g-cell">
+              <img src="${esc(p.src)}" alt="${esc(p.cap)}" loading="lazy"/>
+              <figcaption class="g-cap">${esc(p.cap)}</figcaption>
+            </figure>
+          `).join("")}
+        </div>
+
+        <div class="memory-box" id="memory-box">
+          <div class="box-lid"></div>
+          <div class="box-base">
+            <div class="box-glow"></div>
+            <i class="fa-solid fa-heart"></i>
+          </div>
+          <h3>Our Memory Box ❤️</h3>
+          <p>Some memories are too precious to leave outside...</p>
+          <button class="btn btn-primary" id="open-box">Open Box</button>
+        </div>
+
+        <div id="more-gallery" class="more-gallery" hidden>
+          <h2 class="section-title">More Beautiful Memories ❤️</h2>
+          <div class="gallery" id="more-gallery-grid"></div>
+        </div>
       `;
-      const g=$("#rime-gallery");
-   RIME_PHOTOS.forEach(p=>{
-    g.innerHTML+=`<figure class="g-cell">
-        <img src="${esc(p.src)}" alt="${esc(p.cap)}" loading="lazy"/>
-        <figcaption class="g-cap">${esc(p.cap)}</figcaption>
-    </figure>`;
-});
 
-g.innerHTML += `
-<div class="memory-box" id="memory-box">
+      const openBtn = document.getElementById("open-box");
+      if(openBtn){
+        openBtn.onclick = () => {
+          const box = document.getElementById("memory-box");
+          const grid = document.getElementById("more-gallery-grid");
+          const moreGallery = document.getElementById("more-gallery");
+          if(!box || !grid || !moreGallery) return;
 
-    <div class="box-lid"></div>
+          box.classList.add("shake");
 
-    <div class="box-base">
-        <div class="box-glow"></div>
-        <i class="fa-solid fa-heart"></i>
+          setTimeout(() => {
+            box.classList.remove("shake");
+            box.classList.add("open");
 
-    </div>
+            createParticles(box);
 
-    <h3>Our Memory Box ❤️</h3>
+            if(typeof window.triggerFireworks==="function")
+              window.triggerFireworks({bursts:2});
 
-    <p>
-        Some memories are too precious
-        to leave outside...
-    </p>
+            setTimeout(() => {
+              moreGallery.hidden = false;
+              grid.innerHTML = "";
 
-    <button class="btn btn-primary" id="open-box">
-
-        Open Box
-
-    </button>
-
-</div>
-`;
-g.innerHTML += `
-<div id="more-gallery" class="more-gallery" hidden>
-
-    <h2 class="section-title">More Beautiful Memories ❤️</h2>
-
-    <div class="gallery" id="more-gallery-grid"></div>
-
-</div>
-`;
-
-document.getElementById("open-box").onclick = () => {
-
-    const box = document.getElementById("memory-box");
-    const grid = document.getElementById("more-gallery-grid");
-    const moreGallery = document.getElementById("more-gallery");
-
-    box.classList.add("shake");
-
-    setTimeout(() => {
-
-        box.classList.remove("shake");
-        box.classList.add("open");
-
-        createParticles(box);
-
-        if(typeof window.triggerFireworks==="function")
-            window.triggerFireworks({bursts:2});
-
-        setTimeout(() => {
-
-            moreGallery.hidden = false;
-            grid.innerHTML = "";
-
-            const cards = MORE_RIME_PHOTOS.map((p) => {
+              const cards = MORE_RIME_PHOTOS.map((p) => {
                 const card = document.createElement("figure");
                 card.className = `g-cell ${p.type || ""}`;
                 card.innerHTML = `
-                    <img src="${esc(p.src)}" alt="${esc(p.cap)}" loading="lazy">
-                    <figcaption class="g-cap">${esc(p.cap)}</figcaption>
+                  <img src="${esc(p.src)}" alt="${esc(p.cap)}" loading="lazy">
+                  <figcaption class="g-cap">${esc(p.cap)}</figcaption>
                 `;
                 card.style.opacity = "0"; 
                 grid.appendChild(card);
                 return card;
-            });
+              });
 
-            // Force layout calculation
-            const _ = grid.offsetHeight;
+              // Force layout calculation
+              const _ = grid.offsetHeight;
 
-            const boxRect = box.getBoundingClientRect();
-            const boxCenterX = boxRect.left + boxRect.width / 2;
-            const boxCenterY = boxRect.top + boxRect.height / 2;
+              const boxRect = box.getBoundingClientRect();
+              const boxCenterX = boxRect.left + boxRect.width / 2;
+              const boxCenterY = boxRect.top + boxRect.height / 2;
 
-            let settledCount = 0;
+              let settledCount = 0;
 
-            cards.forEach((card, i) => {
+              cards.forEach((card, i) => {
                 setTimeout(() => {
-                    const finalRect = card.getBoundingClientRect();
-                    const finalCenterX = finalRect.left + finalRect.width / 2;
-                    const finalCenterY = finalRect.top + finalRect.height / 2;
+                  const finalRect = card.getBoundingClientRect();
+                  const finalCenterX = finalRect.left + finalRect.width / 2;
+                  const finalCenterY = finalRect.top + finalRect.height / 2;
+                  
+                  const deltaX = boxCenterX - finalCenterX;
+                  const deltaY = boxCenterY - finalCenterY;
+                  
+                  card.style.transition = "none";
+                  card.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(0.2) rotate(-10deg)`;
+                  card.style.opacity = "0";
+                  
+                  // Force repaint
+                  const __ = card.offsetHeight;
+                  
+                  card.style.transition = "transform 0.8s cubic-bezier(0.25, 1, 0.35, 1), opacity 0.6s ease";
+                  
+                  requestAnimationFrame(() => {
+                    card.style.opacity = "1";
+                    card.style.transform = "translate(0px, 0px) scale(1) rotate(0deg)";
+                  });
+                  
+                  setTimeout(() => {
+                    card.style.transition = "";
+                    card.style.transform = "";
+                    settledCount++;
                     
-                    const deltaX = boxCenterX - finalCenterX;
-                    const deltaY = boxCenterY - finalCenterY;
-                    
-                    card.style.transition = "none";
-                    card.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(0.2) rotate(-10deg)`;
-                    card.style.opacity = "0";
-                    
-                    // Force repaint
-                    const __ = card.offsetHeight;
-                    
-                    card.style.transition = "transform 1s cubic-bezier(0.25, 1, 0.35, 1), opacity 0.8s ease";
-                    
-                    requestAnimationFrame(() => {
-                        card.style.opacity = "1";
-                        card.style.transform = "translate(0px, 0px) scale(1) rotate(0deg)";
-                    });
-                    
-                    setTimeout(() => {
-                        card.style.transition = "";
-                        card.style.transform = "";
-                        settledCount++;
-                        
-                        if (settledCount === cards.length) {
-                            box.style.transition = "opacity 0.6s ease, transform 0.6s ease";
-                            box.style.opacity = "0";
-                            box.style.transform = "scale(0.8)";
-                            setTimeout(() => { box.remove(); }, 600);
-                        }
-                    }, 1000);
-                    
-                }, i * 150);
-            });
+                    if (settledCount === cards.length) {
+                      box.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+                      box.style.opacity = "0";
+                      box.style.transform = "scale(0.8)";
+                      setTimeout(() => { if(box.parentNode) box.remove(); }, 600);
+                    }
+                  }, 800);
+                  
+                }, i * 100);
+              });
 
-        }, 800);
+            }, 600);
 
-    }, 400);
+          }, 400);
+        };
+      }
 
-};
+      if(typeof window.triggerFireworks==="function")
+        window.triggerFireworks({bursts:2});
 
-function createParticles(box) {
-    const boxRect = box.getBoundingClientRect();
-    const count = 30;
-    for (let i = 0; i < count; i++) {
-        const p = document.createElement("div");
-        p.className = "gold-particle";
-        const x = boxRect.left + boxRect.width * 0.2 + Math.random() * (boxRect.width * 0.6);
-        const y = boxRect.top + 20 + Math.random() * 20;
-        p.style.left = x + "px";
-        p.style.top = y + "px";
-        
-        const driftX = (Math.random() - 0.5) * 200;
-        const driftY = -100 - Math.random() * 200;
-        p.style.setProperty("--x", driftX + "px");
-        p.style.setProperty("--y", driftY + "px");
-        
-        document.body.appendChild(p);
-        setTimeout(() => p.remove(), 1800);
+      return;
     }
-}
-if(typeof window.triggerFireworks==="function")
-    window.triggerFireworks({bursts:2});
 
-return;
-    }
     area.innerHTML=`
       <div class="gate-wrap">
         <h3>${esc(RIME_LABELS[step])}</h3>
@@ -628,19 +592,46 @@ return;
         </form>
       </div>
     `;
-    $("#rime-form").addEventListener("submit",e=>{
-      e.preventDefault();
-      const v=$("#rime-inp").value.trim();
-      if(v===RIME_PASSES[step]){
-        step++;
-        toast("NICE UNLOCKED haha ♡");
-        renderRimeStep();
-        if ($("#rime-inp")) $("#rime-inp").focus();
-      } else {
-        const m=$("#rime-msg");m.className="gate-error";m.textContent="not quite — think of the date, love";
-        setTimeout(()=>{if(m){m.className="gate-hint";m.textContent="just the day — like 12 or 07"}},2400);
-      }
-    });
+    const rimeForm = $("#rime-form");
+    if(rimeForm){
+      rimeForm.addEventListener("submit",e=>{
+        e.preventDefault();
+        const v=$("#rime-inp").value.trim();
+        if(v===RIME_PASSES[step]){
+          step++;
+          toast("NICE UNLOCKED haha ♡");
+          renderRimeStep();
+          if ($("#rime-inp")) $("#rime-inp").focus();
+        } else {
+          const m=$("#rime-msg");
+          if(m){
+            m.className="gate-error";m.textContent="not quite — think of the date, love";
+            setTimeout(()=>{if(m){m.className="gate-hint";m.textContent="just the day — like 12 or 07"}},2400);
+          }
+        }
+      });
+    }
+  }
+
+  function createParticles(box) {
+    const boxRect = box.getBoundingClientRect();
+    const count = 30;
+    for (let i = 0; i < count; i++) {
+      const p = document.createElement("div");
+      p.className = "gold-particle";
+      const x = boxRect.left + boxRect.width * 0.2 + Math.random() * (boxRect.width * 0.6);
+      const y = boxRect.top + 20 + Math.random() * 20;
+      p.style.left = x + "px";
+      p.style.top = y + "px";
+      
+      const driftX = (Math.random() - 0.5) * 200;
+      const driftY = -100 - Math.random() * 200;
+      p.style.setProperty("--x", driftX + "px");
+      p.style.setProperty("--y", driftY + "px");
+      
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 1800);
+    }
   }
 }
 
@@ -842,46 +833,131 @@ function pageWishJar(){
     <section class="wj-scene">
       <div class="wj-jar-wrap" id="wj-jar-wrap">
         <div id="wish-out" class="wish-out"></div>
-        <div class="wj-lid" id="wj-lid">
-          <svg width="200" height="52" viewBox="0 0 200 52">
-            <rect x="46" y="0" width="108" height="26" rx="6" fill="url(#jarLid)" stroke="#4a2e22" stroke-width="1.2"/>
-            <rect x="52" y="24" width="96" height="8" rx="3" fill="#6b3f2c"/>
+        <div class="wj-jar-container">
+          <svg class="wj-jar-svg" id="wj-jar" viewBox="0 0 240 300" width="220" height="275" role="button" aria-label="Draw a wish from jar">
+            <defs>
+              <!-- Glass Body Gradient -->
+              <linearGradient id="glassBody" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="rgba(255, 255, 255, 0.45)" />
+                <stop offset="25%" stop-color="rgba(244, 182, 194, 0.25)" />
+                <stop offset="70%" stop-color="rgba(226, 140, 157, 0.2)" />
+                <stop offset="100%" stop-color="rgba(255, 255, 255, 0.4)" />
+              </linearGradient>
+
+              <!-- Glass Highlight -->
+              <linearGradient id="glassHighlight" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="rgba(255, 255, 255, 0.8)" />
+                <stop offset="50%" stop-color="rgba(255, 255, 255, 0.2)" />
+                <stop offset="100%" stop-color="rgba(255, 255, 255, 0)" />
+              </linearGradient>
+
+              <!-- Cork Lid Gradient -->
+              <linearGradient id="corkGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#8B5A2B" />
+                <stop offset="30%" stop-color="#C49A6C" />
+                <stop offset="70%" stop-color="#D4AB7D" />
+                <stop offset="100%" stop-color="#704214" />
+              </linearGradient>
+
+              <!-- Ambient Base Glow -->
+              <radialGradient id="jarGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="rgba(244, 182, 194, 0.6)" />
+                <stop offset="60%" stop-color="rgba(226, 140, 157, 0.25)" />
+                <stop offset="100%" stop-color="rgba(0, 0, 0, 0)" />
+              </radialGradient>
+            </defs>
+
+            <!-- Ambient Glow Base -->
+            <ellipse cx="120" cy="270" rx="90" ry="20" fill="url(#jarGlow)" />
+
+            <!-- CORK LID -->
+            <g id="wj-lid" class="wj-cork-group">
+              <ellipse cx="120" cy="35" rx="55" ry="12" fill="url(#corkGradient)" stroke="#5c3818" stroke-width="1" />
+              <path d="M65 35 L69 62 Q120 70 171 62 L175 35 Z" fill="url(#corkGradient)" stroke="#5c3818" stroke-width="1" />
+              <ellipse cx="120" cy="62" rx="51" ry="8" fill="#704214" opacity="0.4" />
+              <!-- Twine Wrap -->
+              <path d="M66 50 Q120 58 174 50" fill="none" stroke="#D2B48C" stroke-width="3" />
+              <!-- Hanging Heart Tag -->
+              <path d="M140 55 L152 85" stroke="#D2B48C" stroke-width="1.5" stroke-dasharray="2,2" />
+              <path d="M152 85 C152 80, 145 78, 145 83 C145 88, 152 93, 152 93 C152 93, 159 88, 159 83 C159 78, 152 80, 152 85 Z" fill="#e28c9d" stroke="#fff" stroke-width="1" />
+            </g>
+
+            <!-- GLASS RIM -->
+            <ellipse cx="120" cy="65" rx="60" ry="12" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="4" />
+            <ellipse cx="120" cy="65" rx="58" ry="10" fill="rgba(255,255,255,0.15)" stroke="rgba(244,182,194,0.5)" stroke-width="1.5" />
+
+            <!-- MAIN GLASS BODY -->
+            <path d="M62 65 Q60 85 35 110 Q25 150 25 210 Q25 260 55 265 L185 265 Q215 260 215 210 Q215 150 205 110 Q180 85 178 65 Z"
+                  fill="url(#glassBody)" stroke="rgba(255, 255, 255, 0.6)" stroke-width="2.5" filter="drop-shadow(0 12px 24px rgba(0,0,0,0.3))" />
+
+            <!-- INNER GLASS CONTOUR -->
+            <path d="M66 70 Q64 88 41 112 Q32 150 32 206 Q32 254 60 258 L180 258 Q208 254 208 206 Q208 150 199 112 Q176 88 174 70 Z"
+                  fill="none" stroke="rgba(244, 182, 194, 0.35)" stroke-width="1" />
+
+            <!-- REFLECTION HIGHLIGHTS -->
+            <path d="M42 115 Q35 150 35 200 Q35 240 45 250" fill="none" stroke="url(#glassHighlight)" stroke-width="8" stroke-linecap="round" opacity="0.8" />
+            <path d="M198 120 Q205 155 205 195" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="4" stroke-linecap="round" opacity="0.5" />
+
+            <!-- WISH NOTES & FLOATING HEARTS -->
+            <g class="wj-inside-wishes">
+              <rect x="70" y="200" width="34" height="22" rx="3" fill="#FFE4E1" transform="rotate(-15 87 211)" stroke="#E28C9D" stroke-width="1"/>
+              <rect x="135" y="190" width="38" height="24" rx="3" fill="#FFF0F5" transform="rotate(20 154 202)" stroke="#F4B6C2" stroke-width="1"/>
+              <rect x="95" y="170" width="40" height="26" rx="4" fill="#FFD1DC" transform="rotate(-5 115 183)" stroke="#E28C9D" stroke-width="1.2"/>
+              <path d="M107 183 L123 183 M115 177 L115 189" stroke="#fff" stroke-width="2"/>
+
+              <path class="wj-float-heart-1" d="M75 140 C75 136, 70 134, 70 138 C70 142, 75 146, 75 146 C75 146, 80 142, 80 138 C80 134, 75 136, 75 140 Z" fill="#ff758c" opacity="0.85"/>
+              <path class="wj-float-heart-2" d="M160 145 C160 141, 155 139, 155 143 C155 147, 160 151, 160 151 C160 151, 165 147, 165 143 C165 139, 160 141, 160 145 Z" fill="#f4b6c2" opacity="0.9"/>
+              <path class="wj-float-heart-3" d="M115 125 C115 120, 108 118, 108 123 C108 128, 115 133, 115 133 C115 133, 122 128, 122 123 C122 118, 115 120, 115 125 Z" fill="#ff7b9c" opacity="0.95"/>
+
+              <circle cx="85" cy="110" r="4" fill="#FFE4E1" opacity="0.7" />
+              <circle cx="150" cy="115" r="3" fill="#FFF" opacity="0.8" />
+              <circle cx="120" cy="100" r="5" fill="#F4B6C2" opacity="0.6" />
+            </g>
+
+            <text x="120" y="248" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="16" font-style="italic" fill="#FFF" opacity="0.95" letter-spacing="1">✨ tap to draw a wish ✨</text>
           </svg>
         </div>
-        <svg class="wj-jar" id="wj-jar" width="200" height="200" viewBox="0 0 200 200" role="button" aria-label="Draw a wish">
-          <defs>
-            <linearGradient id="jarGlass" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="rgba(244,182,194,0.35)"/>
-              <stop offset="100%" stop-color="rgba(107,63,44,0.35)"/>
-            </linearGradient>
-            <linearGradient id="jarLid" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#e6c78a"/>
-              <stop offset="100%" stop-color="#b98d4a"/>
-            </linearGradient>
-          </defs>
-          <path d="M40 20 Q40 10 50 10 L150 10 Q160 10 160 20 L160 170 Q160 184 146 184 L54 184 Q40 184 40 170 Z" fill="url(#jarGlass)" stroke="#f4b6c2" stroke-width="1.2"/>
-          <text x="100" y="110" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="20" font-style="italic" fill="#f8ecdb" opacity="0.7">tap me</text>
-          <circle cx="75" cy="80" r="5" fill="#f4b6c2" opacity="0.3"/>
-          <circle cx="120" cy="60" r="4" fill="#e6c78a" opacity="0.3"/>
-          <circle cx="90" cy="140" r="6" fill="#e28c9d" opacity="0.25"/>
-          <circle cx="130" cy="130" r="3" fill="#f4b6c2" opacity="0.35"/>
-        </svg>
       </div>
     </section>
   `;
   const jar=$("#wj-jar");
   const lid=$("#wj-lid");
   const wrap=$("#wj-jar-wrap");
+  if(!wrap) return;
+
   wrap.addEventListener("click",()=>{
-    jar.classList.remove("shake");void jar.offsetWidth;jar.classList.add("shake");
-    // Pop the lid
-    lid.classList.remove("pop");void lid.offsetWidth;lid.classList.add("pop");
+    if(jar){
+      jar.classList.remove("shake");void jar.offsetWidth;jar.classList.add("shake");
+    }
+    if(lid){
+      lid.classList.remove("pop");void lid.offsetWidth;lid.classList.add("pop");
+    }
+    
+    // Spawn floating sparkles/hearts from neck of jar
+    if(wrap){
+      for(let i=0; i<6; i++){
+        const h=document.createElement("span");
+        h.className="wj-burst-heart";
+        h.innerHTML='<i class="fa-solid fa-heart"></i>';
+        h.style.left=(45 + Math.random()*10)+"%";
+        h.style.top="20%";
+        h.style.setProperty("--dx", (Math.random() - 0.5)*120 + "px");
+        h.style.setProperty("--dy", (-80 - Math.random()*80) + "px");
+        wrap.appendChild(h);
+        setTimeout(()=>h.remove(), 1200);
+      }
+    }
+
     const pool=WISHES.filter((_,i)=>!used.includes(i));
     const out=$("#wish-out");
-    // Clear previous and wait for lid to open before showing msg
+    if(!out) return;
     out.innerHTML="";
     setTimeout(()=>{
-      if(pool.length===0){used=[];out.innerHTML=`<div class="wj-msg wj-msg-rise">(refilled the jar for you) tap again</div>`;return}
+      if(pool.length===0){
+        used=[];
+        out.innerHTML=`<div class="wj-msg wj-msg-rise">"(refilled the jar with more love for you ❤️) tap again!"</div>`;
+        return;
+      }
       const pickInPool=Math.floor(Math.random()*pool.length);
       const originalIdx=WISHES.indexOf(pool[pickInPool]);
       used.push(originalIdx);
