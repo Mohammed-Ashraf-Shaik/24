@@ -360,7 +360,7 @@ function pageHub(){
     {to:"rime",title:"at RIME",desc:"the place we always meet — enter the four dates.",icon:"fa-map-pin",locked:true},
     {to:"hands",title:"our hands",desc:"holding on to you, never letting go.",icon:"fa-hand-holding-heart",locked:true},
     {to:"gifts",title:"gifts from you",desc:"every little thing you gave me.",icon:"fa-gift"},
-    {to:"game",title:"our little games",desc:"memory, quiz and a scratch card.",icon:"fa-puzzle-piece"},
+    {to:"game",title:"our little games",desc:"memory, quiz and a scratch card.",icon:"fa-puzzle-piece",locked:true},
     {to:"letter",title:"a handwritten letter",desc:"for your eyes only. (whisper 'ashu')",icon:"fa-envelope-open-text",locked:true},
     {to:"wishjar",title:"the wish jar",desc:"tap the jar for something sweet.",icon:"fa-star"},
   ];
@@ -785,15 +785,53 @@ function pageWishJar(){
 function pageGame(){
   let tab="memory";
   const done={memory:false,quiz:false,scratch:false};
+
+  const ok=sessionStorage.getItem("game-unlocked")==="true";
   app.innerHTML=`
     <p class="eyebrow">three tiny games</p>
     <h1 class="hero-title">play with <em>me</em>.</h1>
     <p class="hero-sub" id="game-sub">memory match, a little quiz about us, and a scratch card with something hidden underneath.</p>
-    <div class="game-tabs" id="game-tabs"></div>
-    <div id="game-area"></div>
+    <div id="game-main-area"></div>
   `;
-  renderTabs();
-  renderGame();
+  
+  if(ok){showGames();return;}
+  
+  const area=$("#game-main-area");
+  area.innerHTML=`
+    <div class="gate-wrap">
+      <h3>unlock our games</h3>
+      <p>Remember the month and date you met my mom.</p>
+      <form id="game-form">
+        <input class="gate-input" type="text" placeholder="month date" id="game-inp" autofocus />
+        <div style="display:flex;justify-content:center;margin-top:16px">
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-lock-open"></i> unlock</button>
+        </div>
+        <div id="game-msg" class="gate-hint">e.g. january 01</div>
+      </form>
+    </div>
+  `;
+  
+  $("#game-form").addEventListener("submit",e=>{
+    e.preventDefault();
+    const v=$("#game-inp").value.trim().toLowerCase();
+    if(v==="june 27" || v==="june27" || v==="27 june" || v==="27th june"){
+      sessionStorage.setItem("game-unlocked","true");
+      showGames();
+    } else {
+      const m=$("#game-msg");m.className="gate-error";m.textContent="that's not it, try again";
+      setTimeout(()=>{if(m){m.className="gate-hint";m.textContent="e.g. january 01"}},2400);
+    }
+  });
+
+  function showGames() {
+    const area=$("#game-main-area");
+    area.innerHTML=`
+      <div class="game-tabs" id="game-tabs"></div>
+      <div id="game-area"></div>
+    `;
+    renderTabs();
+    renderGame();
+  }
 
   function renderTabs(){
     const TABS=[{id:"memory",label:"memory match",icon:"fa-clone"},{id:"quiz",label:"little quiz",icon:"fa-circle-question"},{id:"scratch",label:"scratch to reveal",icon:"fa-hand-sparkles"}];
