@@ -149,14 +149,14 @@ const QUIZ_QS = [
 ];
 
 const MEM_IMGS = [
-  "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=400&q=70",
-  "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=400&q=70",
-  "https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=400&q=70",
-  "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=400&q=70",
-  "https://images.unsplash.com/photo-1494774157365-9e04c6720e47?auto=format&fit=crop&w=400&q=70",
-  "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=70",
-  "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=400&q=70",
-  "https://images.unsplash.com/photo-1523805009345-7448845a9e53?auto=format&fit=crop&w=400&q=70",
+  "assets/memorymatch/IMG-20250804-WA0072.jpg",
+  "assets/memorymatch/IMG-20250804-WA0111.jpg",
+  "assets/memorymatch/IMG-20250901-WA0033.jpg",
+  "assets/memorymatch/IMG-20251217-WA0025.jpg",
+  "assets/memorymatch/IMG-20260111-WA0041.jpg",
+  "assets/memorymatch/Snapchat-398149092.jpg",
+  "assets/memorymatch/her.jpg",
+  "assets/memorymatch/IMG-20260731-WA0069.jpg",
 ];
 
 /* ==================== HELPERS ==================== */
