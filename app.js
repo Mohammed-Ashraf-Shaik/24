@@ -874,8 +874,13 @@ function pageGame(){
           matched.add(deck[a].src);
           board.querySelectorAll(".mm-card").forEach(c=>{if([a,b].includes(+c.dataset.idx))c.classList.add("matched")});
           flipped=[];
-          if(matched.size===MEM_IMGS.length){done.memory=true;renderTabs();toast("memory complete ♡");if(typeof window.triggerFireworks==="function")window.triggerFireworks({bursts:2})}
-        } else {
+          if(matched.size===MEM_IMGS.length){
+            done.memory=true;
+            renderTabs();
+            toast("memory complete ♡");
+            if(typeof window.triggerFireworks==="function")window.triggerFireworks({bursts:2});
+            pixelReveal(board);
+          }
           setTimeout(()=>{board.querySelectorAll(".mm-card").forEach(c=>{if([a,b].includes(+c.dataset.idx))c.classList.remove("flipped")});flipped=[]},900);
         }
       }
@@ -949,6 +954,97 @@ function pageGame(){
     cv.addEventListener("touchmove",e=>{if(!drawing)return;e.preventDefault();const p=getPos(e);scratch(p.x,p.y)},{passive:false});
     window.addEventListener("touchend",()=>{drawing=false});
   }
+}
+
+/* ==================== PIXEL REVEAL ==================== */
+function pixelReveal(boardElement) {
+  const w = boardElement.clientWidth || 400;
+  const h = boardElement.clientHeight || 400;
+  
+  const canvas = document.createElement("canvas");
+  canvas.width = w;
+  canvas.height = h;
+  canvas.style.width = "100%";
+  canvas.style.height = h + "px";
+  canvas.style.borderRadius = "12px";
+  
+  boardElement.innerHTML = "";
+  boardElement.style.display = "block";
+  boardElement.appendChild(canvas);
+  
+  const ctx = canvas.getContext("2d");
+  
+  const img = new Image();
+  img.src = "assets/memorymatch/reveal.jpg";
+  img.onload = () => {
+    const blockSize = 20; // 20x20 pixel blocks
+    const cols = Math.ceil(w / blockSize);
+    const rows = Math.ceil(h / blockSize);
+    
+    let blocks = [];
+    for(let c=0; c<cols; c++){
+      for(let r=0; r<rows; r++){
+        blocks.push({c, r});
+      }
+    }
+    blocks = shuffle(blocks);
+    
+    let i = 0;
+    const blocksPerFrame = Math.max(1, Math.ceil(blocks.length / 90)); // Finish in ~1.5 sec
+    
+    function draw() {
+      for(let b=0; b<blocksPerFrame; b++){
+        if(i >= blocks.length) break;
+        const blk = blocks[i++];
+        const x = blk.c * blockSize;
+        const y = blk.r * blockSize;
+        
+        const imgAspect = img.width / img.height;
+        const canvasAspect = w / h;
+        let sx, sy, sw, sh;
+        
+        if (imgAspect > canvasAspect) {
+          sh = img.height;
+          sw = img.height * canvasAspect;
+          sx = (img.width - sw) / 2;
+          sy = 0;
+        } else {
+          sw = img.width;
+          sh = img.width / canvasAspect;
+          sx = 0;
+          sy = (img.height - sh) / 2;
+        }
+        
+        const srcX = sx + (x / w) * sw;
+        const srcY = sy + (y / h) * sh;
+        const srcW = (blockSize / w) * sw;
+        const srcH = (blockSize / h) * sh;
+        
+        ctx.drawImage(img, srcX, srcY, srcW, srcH, x, y, blockSize, blockSize);
+      }
+      
+      if(i < blocks.length){
+        requestAnimationFrame(draw);
+      } else {
+        const finalImg = document.createElement("img");
+        finalImg.src = img.src;
+        finalImg.style.width = "100%";
+        finalImg.style.height = h + "px";
+        finalImg.style.objectFit = "cover";
+        finalImg.style.borderRadius = "12px";
+        finalImg.style.animation = "fade-in 1s forwards";
+        
+        setTimeout(() => {
+          boardElement.innerHTML = "";
+          boardElement.appendChild(finalImg);
+        }, 500);
+      }
+    }
+    
+    ctx.fillStyle = "var(--bg-0)";
+    ctx.fillRect(0,0,w,h);
+    draw();
+  };
 }
 
 /* ==================== SHUFFLE ==================== */
