@@ -1,26 +1,26 @@
 /* ========= Design tokens ========= */
 :root {
-  --bg-0: #140a10;
-  --bg-1: #1c1015;
-  --bg-2: #26161c;
+  --bg-0: #120910;
+  --bg-1: #1a0d15;
+  --bg-2: #24131b;
   --wine: #3b1c26;
   --brown-1: #4a2e22;
   --brown-2: #2b1a14;
   --brown-3: #6b3f2c;
-  --ink-0: #f6e9dd;
-  --ink-1: #e9d3c0;
-  --ink-2: #b89a8a;
-  --ink-mute: #8f7566;
-  --rose-1: #f4b6c2;
-  --rose-2: #e28c9d;
-  --rose-3: #b45067;
-  --gold-1: #e6c78a;
-  --gold-2: #b98d4a;
-  --cream: #f8ecdb;
-  --line: rgba(246, 233, 221, 0.08);
-  --line-strong: rgba(246, 233, 221, 0.16);
-  --shadow-1: 0 12px 40px rgba(0, 0, 0, 0.35);
-  --shadow-2: 0 24px 80px rgba(0, 0, 0, 0.55);
+  --ink-0: #FFFFFF;
+  --ink-1: #F7EBE1;
+  --ink-2: #D8C4B6;
+  --ink-mute: #BCA89B;
+  --rose-1: #f8c2cc;
+  --rose-2: #ea96a6;
+  --rose-3: #c25970;
+  --gold-1: #ebd19b;
+  --gold-2: #c69b57;
+  --cream: #FFF5E6;
+  --line: rgba(246, 233, 221, 0.12);
+  --line-strong: rgba(246, 233, 221, 0.22);
+  --shadow-1: 0 12px 40px rgba(0, 0, 0, 0.45);
+  --shadow-2: 0 24px 80px rgba(0, 0, 0, 0.7);
   --sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
   --serif: "Cormorant Garamond", Georgia, serif;
   --hand: "Caveat", cursive;
@@ -36,27 +36,26 @@
     border-radius:14px;
 }
 
-/* ========= Reset ========= */
-/* ========= Reset & Premium Romantic Background ========= */
+/* ========= Reset & Peaceful Romantic Background ========= */
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; min-height: 100vh; }
 body {
   font-family: var(--sans);
   color: var(--ink-1);
-  background-color: #0d060b;
+  background-color: #0c060a;
   background-image: 
-    radial-gradient(1200px 900px at 85% -10%, rgba(110, 35, 65, 0.45) 0%, transparent 60%),
-    radial-gradient(1000px 800px at -10% 110%, rgba(85, 35, 25, 0.45) 0%, transparent 60%),
-    radial-gradient(900px 700px at 50% 50%, rgba(65, 20, 45, 0.35) 0%, transparent 70%),
-    linear-gradient(180deg, #140a10 0%, #0d060b 100%);
+    radial-gradient(1200px 900px at 85% -10%, rgba(90, 30, 50, 0.35) 0%, transparent 60%),
+    radial-gradient(1000px 800px at -10% 110%, rgba(70, 30, 20, 0.35) 0%, transparent 60%),
+    linear-gradient(180deg, #120910 0%, #0c060a 100%);
   background-attachment: fixed;
   overflow-x: hidden;
-  line-height: 1.55;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
   cursor: none;
   position: relative;
 }
 
-/* Dynamic Romantic Aurora Glow overlay */
+/* Soft, Subtle Romantic Atmosphere */
 body::before {
   content: "";
   position: fixed;
@@ -65,16 +64,15 @@ body::before {
   height: 200%;
   z-index: 0;
   pointer-events: none;
-  background: radial-gradient(circle at 40% 40%, rgba(244, 182, 194, 0.08) 0%, transparent 40%),
-              radial-gradient(circle at 70% 60%, rgba(230, 199, 138, 0.06) 0%, transparent 45%);
-  animation: romanticAurora 24s ease-in-out infinite alternate;
-  filter: blur(40px);
+  background: radial-gradient(circle at 40% 40%, rgba(244, 182, 194, 0.04) 0%, transparent 40%),
+              radial-gradient(circle at 70% 60%, rgba(230, 199, 138, 0.03) 0%, transparent 45%);
+  animation: romanticAurora 32s ease-in-out infinite alternate;
+  filter: blur(50px);
 }
 
 @keyframes romanticAurora {
-  0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
-  50%  { transform: translate(-30px, 20px) scale(1.08) rotate(3deg); }
-  100% { transform: translate(30px, -20px) scale(1.03) rotate(-3deg); }
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(20px, -15px) scale(1.03); }
 }
 
 img { max-width: 100%; display: block; }
@@ -84,30 +82,28 @@ button { font: inherit; color: inherit; }
 ::selection { background: var(--rose-3); color: var(--cream); }
 a { color: var(--rose-1); text-decoration: none; }
 
-/* ========= Big M background ========= */
+/* ========= Background M Watermark (Subtle & Non-distracting) ========= */
 .m-bg {
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
   display: flex; align-items: center; justify-content: center;
   overflow: hidden;
 }
 
-/* Romantic pulsing background M */
 .m-bg svg {
-  width: 92vmin;
-  height: 92vmin;
-  max-width: 1300px;
-  max-height: 1300px;
-  opacity: 0.16;
+  width: 88vmin;
+  height: 88vmin;
+  max-width: 1200px;
+  max-height: 1200px;
+  opacity: 0.05;
   color: var(--rose-1);
-  filter: drop-shadow(0 0 50px rgba(244, 182, 194, 0.65)) drop-shadow(0 0 100px rgba(226, 140, 157, 0.3));
-  animation: mRomantic 10s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(244, 182, 194, 0.2));
+  animation: mRomantic 14s ease-in-out infinite;
 }
 
 @keyframes mRomantic {
-  0%   { opacity: 0.12; transform: translateY(-8px) rotate(-0.5deg) scale(1); filter: drop-shadow(0 0 40px rgba(244,182,194,0.45)); }
-  33%  { opacity: 0.20; transform: translateY(0) rotate(0deg) scale(1.05); filter: drop-shadow(0 0 65px rgba(244,182,194,0.75)); }
-  66%  { opacity: 0.15; transform: translateY(8px) rotate(0.5deg) scale(1.02); filter: drop-shadow(0 0 45px rgba(244,182,194,0.5)); }
-  100% { opacity: 0.12; transform: translateY(-8px) rotate(-0.5deg) scale(1); filter: drop-shadow(0 0 40px rgba(244,182,194,0.45)); }
+  0%   { opacity: 0.04; transform: translateY(-4px) scale(1); }
+  50%  { opacity: 0.07; transform: translateY(4px) scale(1.02); }
+  100% { opacity: 0.04; transform: translateY(-4px) scale(1); }
 }
 
 /* ========= Petal / heart canvas ========= */
@@ -248,24 +244,25 @@ body.cursor-hover .cursor-ring { width: 52px; height: 52px; border-color: var(--
 /* ========= Lock gate ========= */
 .gate-wrap {
   max-width: 480px; margin: 40px auto;
-  padding: 32px; border-radius: 22px;
-  background: linear-gradient(180deg, rgba(74, 46, 34, 0.22), rgba(28, 16, 21, 0.4));
-  border: 1px solid var(--line-strong);
-  box-shadow: var(--shadow-2);
-  text-align: center; backdrop-filter: blur(10px);
+  padding: 36px 32px; border-radius: 24px;
+  background: linear-gradient(180deg, rgba(26, 14, 22, 0.9), rgba(16, 8, 14, 0.92));
+  border: 1.5px solid rgba(244, 182, 194, 0.25);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.65);
+  text-align: center; backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
-.gate-wrap h3 { font-size: 28px; color: var(--cream); margin-bottom: 8px; }
-.gate-wrap p { color: var(--ink-2); margin-bottom: 22px; }
+.gate-wrap h3 { font-size: 28px; color: var(--cream); margin-bottom: 10px; }
+.gate-wrap p { color: var(--ink-2); margin-bottom: 22px; font-size: 16px; line-height: 1.6; }
 .gate-input {
-  width: 100%; background: rgba(0,0,0,0.28);
-  border: 1px solid var(--line-strong);
+  width: 100%; background: rgba(0,0,0,0.45);
+  border: 1.5px solid rgba(246, 233, 221, 0.25);
   color: var(--ink-0); padding: 14px 16px; border-radius: 14px;
   font: inherit; font-size: 16px; text-align: center;
   letter-spacing: 0.08em;
 }
-.gate-input:focus { outline: none; border-color: var(--rose-2); box-shadow: 0 0 0 4px rgba(228,140,157,.15); }
-.gate-hint { color: var(--rose-1); font-family: var(--serif); font-style: italic; margin-top: 12px; min-height: 22px; }
-.gate-error { color: #f4a1a1; font-family: var(--serif); font-style: italic; margin-top: 12px; animation: shake .4s ease; }
+.gate-input:focus { outline: none; border-color: var(--rose-2); box-shadow: 0 0 0 4px rgba(228,140,157,.2); }
+.gate-hint { color: var(--rose-1); font-family: var(--serif); font-style: italic; margin-top: 12px; min-height: 22px; font-size: 16px; }
+.gate-error { color: #f4a1a1; font-family: var(--serif); font-style: italic; margin-top: 12px; animation: shake .4s ease; font-size: 16px; }
 @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
 
 /* ========= Cards / hub ========= */
@@ -274,15 +271,18 @@ body.cursor-hover .cursor-ring { width: 52px; height: 52px; border-color: var(--
   gap: 20px; margin-top: 34px;
 }
 .hub-card {
-  padding: 26px; border-radius: 22px;
-  background: linear-gradient(180deg, rgba(107, 63, 44, 0.16), rgba(28, 16, 21, 0.35));
-  border: 1px solid var(--line-strong);
-  box-shadow: var(--shadow-1); cursor: pointer;
+  padding: 28px; border-radius: 22px;
+  background: linear-gradient(180deg, rgba(28, 15, 23, 0.88), rgba(16, 8, 14, 0.92));
+  border: 1.5px solid rgba(244, 182, 194, 0.2);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.5); cursor: pointer;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   transition: transform .3s var(--ease-out), border-color .3s, box-shadow .3s;
-  display: flex; flex-direction: column; gap: 10px;
+  display: flex; flex-direction: column; gap: 12px;
   position: relative; overflow: hidden;
 }
-.hub-card:hover { transform: translateY(-4px); border-color: rgba(244,182,194,.35); box-shadow: var(--shadow-2); }
+.hub-card:hover { transform: translateY(-4px); border-color: rgba(244,182,194,.45); box-shadow: 0 18px 50px rgba(0,0,0,0.65); }
+.hc-desc { color: var(--ink-2); font-size: 15px; line-height: 1.6; }
 .hub-card::after {
   content: ""; position: absolute; inset: -1px;
   background: radial-gradient(400px 200px at var(--mx, 50%) var(--my, 50%), rgba(244,182,194,.12), transparent 60%);
@@ -663,15 +663,18 @@ ney timeline ========= */
   box-shadow: 0 0 0 5px rgba(228,140,157,0.18), 0 8px 24px rgba(180, 80, 103, 0.35);
 }
 .jr-body {
-  padding: 16px 20px; border-radius: 16px;
-  background: linear-gradient(180deg, rgba(74, 46, 34, 0.22), rgba(28, 16, 21, 0.4));
-  border: 1px solid var(--line-strong);
+  padding: 20px 24px; border-radius: 18px;
+  background: linear-gradient(180deg, rgba(28, 15, 23, 0.9), rgba(16, 8, 14, 0.94));
+  border: 1.5px solid rgba(244, 182, 194, 0.22);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   transition: transform .3s var(--ease-out), border-color .3s;
 }
-.jr-body:hover { transform: translateX(3px); border-color: rgba(244, 182, 194, 0.35); }
-.jr-date { color: var(--gold-1); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
-.jr-title { font-family: var(--serif); font-size: 24px; color: var(--cream); margin: 4px 0 6px; }
-.jr-note { color: var(--ink-2); font-size: 15px; line-height: 1.55; }
+.jr-body:hover { transform: translateX(4px); border-color: rgba(244, 182, 194, 0.45); }
+.jr-date { color: var(--gold-1); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; }
+.jr-title { font-family: var(--serif); font-size: 26px; color: var(--cream); margin: 6px 0 8px; }
+.jr-note { color: var(--ink-2); font-size: 16px; line-height: 1.7; }
 
 /* ========= Game tabs ========= */
 .game-tabs {

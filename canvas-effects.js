@@ -17,16 +17,16 @@
 
   function makeParticle(){
     const r=Math.random();
-    const type=r < 0.45 ? "petal" : (r < 0.8 ? "heart" : "star");
+    const type=r < 0.4 ? "petal" : (r < 0.75 ? "heart" : "star");
     return {
       x: Math.random()*W,
       y: Math.random()*H,
-      vx: (Math.random() - 0.5) * 0.35,
-      vy: type === "petal" ? (0.2 + Math.random()*0.45) : (-0.08 - Math.random()*0.2), // petals fall down, hearts float up
-      sz: type === "petal" ? (6 + Math.random()*8) : (type === "heart" ? 4 + Math.random()*5 : 1 + Math.random()*2.2),
+      vx: (Math.random() - 0.5) * 0.2,
+      vy: type === "petal" ? (0.15 + Math.random()*0.25) : (-0.05 - Math.random()*0.15),
+      sz: type === "petal" ? (5 + Math.random()*6) : (type === "heart" ? 3.5 + Math.random()*4 : 1 + Math.random()*1.8),
       rot: Math.random() * Math.PI * 2,
-      vrot: (Math.random() - 0.5) * 0.035,
-      a: 0.2 + Math.random()*0.55,
+      vrot: (Math.random() - 0.5) * 0.02,
+      a: 0.12 + Math.random()*0.35,
       type: type,
       hue: Math.random() < 0.6 ? "rose" : (Math.random() < 0.85 ? "gold" : "crimson"),
       ph: Math.random() * Math.PI * 2
@@ -34,7 +34,7 @@
   }
 
   function init(){
-    const n=reduced ? 0 : Math.max(35, Math.min(80, Math.floor(W*H/18000)));
+    const n=reduced ? 0 : Math.max(20, Math.min(45, Math.floor(W*H/32000)));
     petals=[];
     for(let i=0; i<n; i++) petals.push(makeParticle());
   }
