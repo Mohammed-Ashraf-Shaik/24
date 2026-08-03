@@ -115,9 +115,9 @@ const MORE_RIME_PHOTOS = [
     {src:"assets/rime2/15.jpg",cap:"🖤🤎",type:"landscape"},
     {src:"assets/rime2/16.jpg",cap:"🖤🤎",type:"portrait"},
     {src:"assets/rime2/17.jpg",cap:"🖤🤎",type:"portrait"},
-    {src:"assets/rime2/18.jpg",cap:"🖤🤎",type:"portrait"},
+    {src:"assets/rime2/18.jpg",cap:"🖤🤎",type:"full-pic"},
     {src:"assets/rime2/19.jpg",cap:"🖤🤎",type:"portrait"},
-    {src:"assets/rime2/20.jpg",cap:"🖤🤎",type:"portrait"}
+    {src:"assets/rime2/20.jpg",cap:"🖤🤎",type:"full-pic"}
 ];
 const GIFT_PHOTOS = [
   {src:"assets/gift/IMG-20251114-WA0027.jpg",cap:"tq for this",type:"portrait"},
@@ -221,6 +221,53 @@ function toast(msg,ms=2600){
   $("#cat-dismiss-btn").addEventListener("click",()=>{dismissed=true;modal.hidden=true});
   const gif=$("#cat-gif");
   if(gif)gif.addEventListener("error",()=>{gif.src="https://media.tenor.com/2roX3uxz_68AAAAj/cat-kawaii.gif"});
+})();
+
+/* ==================== LIGHTBOX MODAL ==================== */
+(function initLightbox(){
+  let box = null;
+  function getBox(){
+    if(!box){
+      box = document.createElement("div");
+      box.id = "lightbox-modal";
+      box.className = "lightbox-modal";
+      box.innerHTML = `
+        <div class="lightbox-backdrop"></div>
+        <div class="lightbox-content">
+          <button class="lightbox-close" aria-label="Close">&times;</button>
+          <img id="lightbox-img" src="" alt="Full memory view" />
+          <div id="lightbox-cap" class="lightbox-cap"></div>
+        </div>
+      `;
+      document.body.appendChild(box);
+      box.querySelector(".lightbox-backdrop").onclick = close;
+      box.querySelector(".lightbox-close").onclick = close;
+      window.addEventListener("keydown", e => { if(e.key === "Escape") close(); });
+    }
+    return box;
+  }
+  function open(src, caption){
+    const b = getBox();
+    const imgEl = b.querySelector("#lightbox-img");
+    const capEl = b.querySelector("#lightbox-cap");
+    imgEl.src = src;
+    capEl.textContent = caption || "";
+    b.classList.add("active");
+  }
+  function close(){
+    if(box) box.classList.remove("active");
+  }
+
+  document.body.addEventListener("click", e => {
+    const cell = e.target.closest(".g-cell");
+    if(cell){
+      const img = cell.querySelector("img");
+      const cap = cell.querySelector(".g-cap");
+      if(img){
+        open(img.src, cap ? cap.textContent : "");
+      }
+    }
+  });
 })();
 
 /* ==================== PREVIEW MODE (secret key) ==================== */
