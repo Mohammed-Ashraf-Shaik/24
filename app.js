@@ -114,12 +114,25 @@ const MORE_RIME_PHOTOS = [
     {src:"assets/rime2/20.jpg",cap:"🖤🤎",type:"portrait"}
 ];
 const GIFT_PHOTOS = [
-  {src:"https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=70",cap:"the little box you handed me"},
-  {src:"https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=800&q=70",cap:"wrapped in your handwriting"},
-  {src:"https://images.unsplash.com/photo-1608755728617-aefab37d2edd?auto=format&fit=crop&w=800&q=70",cap:"you knew exactly what i needed"},
-  {src:"https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?auto=format&fit=crop&w=800&q=70",cap:"the surprise one"},
-  {src:"https://images.unsplash.com/photo-1512909006721-3d6018887383?auto=format&fit=crop&w=800&q=70",cap:"with a bow, of course"},
-  {src:"https://images.unsplash.com/photo-1481794998337-2cef1f761e83?auto=format&fit=crop&w=800&q=70",cap:"small thing, big feeling"},
+  {src:"assets/gift/IMG-20251114-WA0027.jpg"},
+  {src:"assets/gift/IMG-20251114-WA0028.jpg"},
+  {src:"assets/gift/IMG-20251114-WA0029.jpg"},
+  {src:"assets/gift/IMG-20251114-WA0031.jpg"},
+  {src:"assets/gift/IMG-20251124-WA0014.jpeg"},
+  {src:"assets/gift/IMG-20260112-WA0005.jpg"},
+  {src:"assets/gift/IMG-20260120-WA0002.jpg"},
+  {src:"assets/gift/IMG-20260429-WA0003.jpg"},
+  {src:"assets/gift/IMG-20260707-WA0004.jpeg"},
+  {src:"assets/gift/IMG_20250817_003647_029.jpg"},
+  {src:"assets/gift/IMG_20251027_100037.jpg"},
+  {src:"assets/gift/IMG_20251221_124339.jpg"},
+  {src:"assets/gift/IMG_20251221_124413.jpg"},
+  {src:"assets/gift/IMG_20260113_161110.jpg"},
+  {src:"assets/gift/IMG_20260516_155306.jpg"},
+  {src:"assets/gift/IMG_20260516_155317.jpg"},
+  {src:"assets/gift/IMG_20260516_155338.jpg"},
+  {src:"assets/gift/IMG_20260803_191511.jpg"},
+  {src:"assets/gift/IMG_20260803_191754.jpg"}
 ];
 
 /* ---------- Wish jar wishes (from reference) ---------- */
@@ -359,7 +372,7 @@ function pageHub(){
     {to:"journey",title:"our journey",desc:"the little map of how we got here.",icon:"fa-road"},
     {to:"rime",title:"at RIME",desc:"the place we always meet — enter the four dates.",icon:"fa-map-pin",locked:true},
     {to:"hands",title:"our hands",desc:"holding on to you, never letting go.",icon:"fa-hand-holding-heart",locked:true},
-    {to:"gifts",title:"gifts from you",desc:"every little thing you gave me.",icon:"fa-gift"},
+    {to:"gifts",title:"gifts from you",desc:"every little thing you gave me.",icon:"fa-gift",locked:true},
     {to:"game",title:"our little games",desc:"memory, quiz and a scratch card.",icon:"fa-puzzle-piece",locked:true},
     {to:"letter",title:"a handwritten letter",desc:"for your eyes only. (whisper 'ashu')",icon:"fa-envelope-open-text",locked:true},
     {to:"wishjar",title:"the wish jar",desc:"tap the jar for something sweet.",icon:"fa-star"},
@@ -674,16 +687,52 @@ function showHandsGallery() {
 
 /* ==================== PAGE: GIFTS ==================== */
 function pageGifts(){
+  const ok=sessionStorage.getItem("gifts-unlocked")==="true";
   app.innerHTML=`
     <p class="eyebrow">everything you handed me</p>
     <h1 class="hero-title">gifts from <em>you</em>.</h1>
     <p class="hero-sub">the box wasn't the gift — you were. still, here they are.</p>
-    <section class="gallery" id="gifts-gallery"></section>
+    <div id="gifts-area"></div>
   `;
-  const g=$("#gifts-gallery");
-  GIFT_PHOTOS.forEach(p=>{
-    g.innerHTML+=`<figure class="g-cell"><img src="${esc(p.src)}" alt="${esc(p.cap)}" loading="lazy"/><figcaption class="g-cap">${esc(p.cap)}</figcaption></figure>`;
+  
+  if(ok){showGifts();return;}
+  
+  const area=$("#gifts-area");
+  area.innerHTML=`
+    <div class="gate-wrap">
+      <h3>unlock our gifts</h3>
+      <p>our first busstand meet date n month</p>
+      <form id="gifts-form">
+        <input class="gate-input" type="text" placeholder="month date" id="gifts-inp" autofocus />
+        <div style="display:flex;justify-content:center;margin-top:16px">
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-lock-open"></i> unlock</button>
+        </div>
+        <div id="gifts-msg" class="gate-hint">e.g. january 01</div>
+      </form>
+    </div>
+  `;
+  
+  $("#gifts-form").addEventListener("submit",e=>{
+    e.preventDefault();
+    const v=$("#gifts-inp").value.trim().toLowerCase();
+    if(v==="july 12" || v==="12 july" || v==="july12" || v==="12july" || v==="12th july"){
+      sessionStorage.setItem("gifts-unlocked","true");
+      showGifts();
+    } else {
+      const m=$("#gifts-msg");m.className="gate-error";m.textContent="not quite, try again";
+      setTimeout(()=>{if(m){m.className="gate-hint";m.textContent="e.g. january 01"}},2400);
+    }
   });
+
+  function showGifts(){
+    const area=$("#gifts-area");
+    area.innerHTML=`<section class="gallery" id="gifts-gallery" style="gap:16px; margin-top:24px; padding-bottom: 30px;"></section>`;
+    const g=$("#gifts-gallery");
+    GIFT_PHOTOS.forEach((p, i)=>{
+      const delay = (i * 0.08).toFixed(2);
+      g.innerHTML+=`<figure class="g-cell gift-anim" style="animation-delay: ${delay}s"><img src="${esc(p.src)}" alt="gift" loading="lazy" style="border-radius:12px;"/></figure>`;
+    });
+  }
 }
 
 /* ==================== PAGE: LETTER ==================== */
