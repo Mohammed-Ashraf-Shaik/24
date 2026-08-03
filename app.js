@@ -879,7 +879,7 @@ function pageGame(){
             renderTabs();
             toast("memory complete ♡");
             if(typeof window.triggerFireworks==="function")window.triggerFireworks({bursts:2});
-            pixelReveal(board);
+            pixelReveal(board, "assets/memorymatch/reveal.jpg");
           }
         } else {
           setTimeout(()=>{board.querySelectorAll(".mm-card").forEach(c=>{if([a,b].includes(+c.dataset.idx))c.classList.remove("flipped")});flipped=[]},900);
@@ -895,9 +895,10 @@ function pageGame(){
     render();
     function render(){
       if(qi>=QUIZ_QS.length){
-        area.innerHTML=`<div class="quiz-done"><h4>you know ashu by heart. ♡</h4><p>that's love, M. that's us.</p></div>`;
+        area.innerHTML=`<div class="quiz-done" style="text-align:center;"><h4>you know ashu by heart. ♡</h4><p>that's love, M. that's us.</p><div id="quiz-reveal-board" style="margin-top:24px;width:100%;max-width:500px;margin-inline:auto;"></div></div>`;
         done.quiz=true;renderTabs();toast("quiz complete ♡");
         if(typeof window.triggerFireworks==="function")window.triggerFireworks({bursts:2});
+        pixelReveal($("#quiz-reveal-board"), "assets/memorymatch/reveal2.jpg");
         return;
       }
       const q=QUIZ_QS[qi];
@@ -958,11 +959,11 @@ function pageGame(){
 }
 
 /* ==================== PIXEL REVEAL ==================== */
-function pixelReveal(boardElement) {
+function pixelReveal(boardElement, imageSrc) {
   const w = boardElement.clientWidth || 400;
   
   const img = new Image();
-  img.src = "assets/memorymatch/reveal.jpg";
+  img.src = imageSrc || "assets/memorymatch/reveal.jpg";
   img.onload = () => {
     const imgAspect = img.width / img.height;
     const h = Math.round(w / imgAspect);
