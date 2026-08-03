@@ -114,25 +114,25 @@ const MORE_RIME_PHOTOS = [
     {src:"assets/rime2/20.jpg",cap:"🖤🤎",type:"portrait"}
 ];
 const GIFT_PHOTOS = [
-  {src:"assets/gift/IMG-20251114-WA0027.jpg"},
-  {src:"assets/gift/IMG-20251114-WA0028.jpg"},
-  {src:"assets/gift/IMG-20251114-WA0029.jpg"},
-  {src:"assets/gift/IMG-20251114-WA0031.jpg"},
-  {src:"assets/gift/IMG-20251124-WA0014.jpeg"},
-  {src:"assets/gift/IMG-20260112-WA0005.jpg"},
-  {src:"assets/gift/IMG-20260120-WA0002.jpg"},
-  {src:"assets/gift/IMG-20260429-WA0003.jpg"},
-  {src:"assets/gift/IMG-20260707-WA0004.jpeg"},
-  {src:"assets/gift/IMG_20250817_003647_029.jpg"},
-  {src:"assets/gift/IMG_20251027_100037.jpg"},
-  {src:"assets/gift/IMG_20251221_124339.jpg"},
-  {src:"assets/gift/IMG_20251221_124413.jpg"},
-  {src:"assets/gift/IMG_20260113_161110.jpg"},
-  {src:"assets/gift/IMG_20260516_155306.jpg"},
-  {src:"assets/gift/IMG_20260516_155317.jpg"},
-  {src:"assets/gift/IMG_20260516_155338.jpg"},
-  {src:"assets/gift/IMG_20260803_191511.jpg"},
-  {src:"assets/gift/IMG_20260803_191754.jpg"}
+  {src:"assets/gift/IMG-20251114-WA0027.jpg",cap:"tq for this",type:"portrait"},
+  {src:"assets/gift/IMG-20251114-WA0028.jpg",cap:"design nuv chepava?",type:"portrait"},
+  {src:"assets/gift/IMG-20251114-WA0029.jpg",cap:"No words i love it",type:"portrait"},
+  {src:"assets/gift/IMG-20251114-WA0031.jpg",cap:"tq for this again",type:"portrait"},
+  {src:"assets/gift/IMG-20251124-WA0014.jpeg",cap:"HMM SOUNDS GOOOOD",type:"portrait"},
+  {src:"assets/gift/IMG-20260112-WA0005.jpg",cap:"kdp ki testa anav e box",type:"portrait"},
+  {src:"assets/gift/IMG-20260120-WA0002.jpg",cap:"Half 2 days tarvata thina",type:"portrait"},
+  {src:"assets/gift/IMG-20260429-WA0003.jpg",cap:"TQ for bringing my childhood",type:"portrait"},
+  {src:"assets/gift/IMG-20260707-WA0004.jpeg",cap:"Smells awesome maha",type:"portrait"},
+  {src:"assets/gift/IMG_20250817_003647_029.jpg",cap:"TEA n MILK",type:"portrait"},
+  {src:"assets/gift/IMG_20251027_100037.jpg",cap:"Poyindi e car i lost it",type:"portrait"},
+  {src:"assets/gift/IMG_20251221_124339.jpg",cap:"keychain umm",type:"portrait"},
+  {src:"assets/gift/IMG_20251221_124413.jpg",cap:"ummm",type:"portrait"},
+  {src:"assets/gift/IMG_20260113_161110.jpg",cap:"Food Food ICE too",type:"portrait"},
+  {src:"assets/gift/IMG_20260516_155306.jpg",cap:"edi ba petukuna esari",type:"portrait"},
+  {src:"assets/gift/IMG_20260516_155317.jpg",cap:"nachindi naku",type:"portrait"},
+  {src:"assets/gift/IMG_20260516_155338.jpg",cap:"pogotukonu ok",type:"portrait"},
+  {src:"assets/gift/IMG_20260803_191511.jpg",cap:"I thought u will not give",type:"portrait"},
+  {src:"assets/gift/IMG_20260803_191754.jpg",cap:"I will use it for next letter",type:"portrait"}
 ];
 
 /* ---------- Wish jar wishes (from reference) ---------- */
@@ -691,7 +691,7 @@ function pageGifts(){
   app.innerHTML=`
     <p class="eyebrow">everything you handed me</p>
     <h1 class="hero-title">gifts from <em>you</em>.</h1>
-    <p class="hero-sub">the box wasn't the gift — you were. still, here they are.</p>
+    <p class="hero-sub">The box wasn't the gift — you were. Still, here they are. I know I forgot a few, and maybe even lost some... I'm sorry. 🤎</p>
     <div id="gifts-area"></div>
   `;
   
@@ -730,7 +730,7 @@ function pageGifts(){
     const g=$("#gifts-gallery");
     GIFT_PHOTOS.forEach((p, i)=>{
       const delay = (i * 0.08).toFixed(2);
-      g.innerHTML+=`<figure class="g-cell gift-anim" style="animation-delay: ${delay}s"><img src="${esc(p.src)}" alt="gift" loading="lazy" style="border-radius:12px;"/></figure>`;
+      g.innerHTML+=`<figure class="g-cell gift-anim" style="animation-delay: ${delay}s"><img src="${esc(p.src)}" alt="gift" loading="lazy" style="border-radius:12px;"/>${p.cap ? `<figcaption class="g-cap">${esc(p.cap)}</figcaption>` : ''}</figure>`;
     });
   }
 }
