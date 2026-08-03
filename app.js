@@ -3,8 +3,8 @@
 /* ==================== CONFIG ==================== */
 const TARGET_DATE = new Date("2026-08-24T00:00:00").getTime();
 const MAIN_PASS = "ashuashu";
-const LETTER_PASS = "ashu";
-const RIME_PASSES = ["1","2","3","4"];
+const LETTER_PASS = "snowman";
+const RIME_PASSES = ["21","05","17","30"];
 
 const RIME_LABELS = [
   "1st meet — the very first time - VIOLET - HMM SOMTG HAPPENED",
@@ -26,14 +26,20 @@ const NAV_ITEMS = [
 
 /* ---------- Journey milestones (from reference) ---------- */
 const MILESTONES = [
-  {date:"the first hello",title:"we met.",note:"you looked away and i looked twice. i knew already."},
-  {date:"the first RIME night",title:"our table.",note:"we stayed until they turned the lights lower. you laughed too loud at something small."},
-  {date:"the first 'us'",title:"we became a thing.",note:"no announcement, no big moment — just quietly true one day."},
-  {date:"the first fight",title:"we survived it.",note:"we chose each other again the next morning. that's how i knew."},
-  {date:"the first gift",title:"you wrapped it in your handwriting.",note:"i still have the paper."},
-  {date:"the trips",title:"roads, windows, playlists.",note:"you fell asleep on my shoulder — the world was very quiet then."},
-  {date:"the today",title:"still here, still choosing you.",note:"and every day after this is another line on this list."},
-  {date:"the next chapter",title:"everything ahead.",note:"quiet mornings. loud kitchens. our little forever."},
+  {date:"the first hello",title:"we met at online.",note:"i knew already.You likes me,said by sailu"},
+  {date:"the first wt we call lil gifts",title:"our classroom.",note:"you always keeps chocolates for me in ur bag,sometimes i stolen ur pens too"},
+  {date:"the first 'us'",title:"we became a thing.",note:"no announcement, no big moment — just quietly bonding."},
+  {date:"the first fight",title:"our college.",note:"u have to tq ur best friend one day for this turning moment"},
+  {date:"the first Understanding",title:"we survived it.",note:"we chose each other again the next early morning and late nights too. that's how i knew."},
+  {date:"the first proposal",title:"You knocked the pot.",note:"i still have that anxiety, ha i remember that date NP."},
+  {date:"the first meet",title:"ICE berg.",note:"That awkward moment so good and ur excitment is real for me i understood."},
+  {date:"the Distance",title:"Btech life still going on.",note:"we tried our best to not to separate."},
+  {date:"breakup 1",title:"1 Sem.",note:"I messed up totally."},
+  {date:"the trips 2 kdp",title:"roads, windows, playlists and uncertains.",note:"you fell asleep on my shoulder — the world was very quiet then. sry if i done anything wrong"},
+  {date:"the RIME",title:"4 meets 4 new explorings(L,N,B,P)",note:"Im not going to say anything because we laughed together kada also builted good convos and quality time spent"},
+  {date:"the Home",title:"That was a nice plan",note:"My two worlds together looking awesome"},
+  {date:"the today",title:"still here, still choosing you.",note:"and every day after this is another line on this list never ending mahaaaa."},
+  {date:"the next chapter",title:"everything ahead.",note:"quiet mornings. good arguements. our little forever."},
 ];
 
 const HANDS_PHOTOS = [
@@ -137,28 +143,29 @@ const GIFT_PHOTOS = [
 
 /* ---------- Wish jar wishes (from reference) ---------- */
 const WISHES = [
-  "you're the softest part of my day.",
-  "i hope your coffee is warm and your worries are small.",
+  "Everytime u talk to me, it's really hard for me to focus",
+  "i hope your b are warm and your worries are small.",
   "every song reminds me of you now — even the ones that don't.",
-  "you laugh, and my chest does that thing.",
-  "you're not a chapter — you're the whole spine.",
-  "if love had a colour, it'd be the one on your cheeks.",
-  "i'd choose you again, in every version of every life.",
-  "you make the ordinary feel like a keepsake.",
-  "your hands. that's it. that's the wish.",
-  "someday soon, and every day after — that's my plan.",
+  "you laugh, makes my day maha.",
+  "you're not a chapter — you're my chapter.",
+  "if love had a name,it will sounds like maha.",
+  "i'd choose you again,even if u ignores me cuz im obsessed uk veeery welll.",
+  "you make the ordinary feel like a premium.",
+  "your hands. that's it.",
+  "someday soon, we will at the home — that's my plan.",
   "you're allowed to be the main character today, ok?",
-  "even RIME's tables miss you when you're gone.",
-  "i saved you a seat, forever.",
-  "you are the reason i pay attention.",
-  "you smell like home to me.",
+  "even RIME's tables miss you when you're gone haha my hands toooo.",
+  "u earned a special place in my heart dearlu",
+  "you are the reason i do things that i don't like.",
+  "I will crave u until butterlifies in ur stomach that never erased.",
+  "I will give u warmth in the cold and butterflies on ur stomach"
 ];
 
 const QUIZ_QS = [
-  {q:"What does ashu love the most about Maha?",opts:["Your smile","Your nose","Your eyes","Everything about you ♡"],ans:2},
+  {q:"What does Ashu love the most about Maha?",opts:["Your smile","Your nose","Your eyes","Everything about you ♡"],ans:2},
   {q:"What's our favorite thing to do together?",opts:["Late night talks","Going on adventures","Being Happy together","All of the above ♡"],ans:3},
-  {q:"When ashu thinks of Maha, what comes to mind first?",opts:["Butterflies","Home","Happiness","Forever ♡"],ans:1},
-  {q:"How much does ashu love Maha?",opts:["A lot","More than words can say","To the moon and stars","less than Arey I Love U more than u love me ♡"],ans:3},
+  {q:"When Ashu thinks of Maha, what comes to mind first?",opts:["Butterflies","Home","Happiness","Forever ♡"],ans:1},
+  {q:"How much does Ashu love Maha?",opts:["A lot","More than words can say","To the moon and stars","Arey I Love U more than u love me ♡"],ans:3},
 ];
 
 const MEM_IMGS = [
@@ -222,7 +229,7 @@ function toast(msg,ms=2600){
   window.addEventListener("keydown",e=>{
     if(e.target&&(e.target.tagName==="INPUT"||e.target.tagName==="TEXTAREA"))return;
     buf=(buf+(e.key||"")).toLowerCase().slice(-8);
-    if(buf.includes("ashu")){sessionStorage.setItem("preview-mode","true");buf="";toast("preview mode activated ♡");renderCurrentPage()}
+    if(buf.includes("Ashu")){sessionStorage.setItem("preview-mode","true");buf="";toast("preview mode activated ♡");renderCurrentPage()}
   });
 })();
 
@@ -374,7 +381,7 @@ function pageHub(){
     {to:"hands",title:"our hands",desc:"holding on to you, never letting go.",icon:"fa-hand-holding-heart",locked:true},
     {to:"gifts",title:"gifts from you",desc:"every little thing you gave me.",icon:"fa-gift",locked:true},
     {to:"game",title:"our little games",desc:"memory, quiz and a scratch card.",icon:"fa-puzzle-piece",locked:true},
-    {to:"letter",title:"a handwritten letter",desc:"for your eyes only. (whisper 'ashu')",icon:"fa-envelope-open-text",locked:true},
+    {to:"letter",title:"a handwritten letter",desc:"for your eyes only.",icon:"fa-envelope-open-text",locked:true},
     {to:"wishjar",title:"the wish jar",desc:"tap the jar for something sweet.",icon:"fa-star"},
   ];
   app.innerHTML=`
@@ -748,14 +755,14 @@ function pageLetter(){
   const area=$("#letter-area");
   area.innerHTML=`
     <div class="gate-wrap">
-      <h3>whisper my name</h3>
+      <h3>whisper my nick name given by u (think abt a SONG)</h3>
       <p>the little word that opens things</p>
       <form id="letter-form">
         <input class="gate-input" type="password" placeholder="••••" id="letter-inp" autofocus />
         <div style="display:flex;justify-content:center;margin-top:16px">
           <button type="submit" class="btn btn-primary"><i class="fa-solid fa-envelope-open"></i> open the letter</button>
         </div>
-        <div id="letter-msg" class="gate-hint">only four letters</div>
+        <div id="letter-msg" class="gate-hint">only seven letters</div>
       </form>
     </div>
   `;
@@ -767,23 +774,61 @@ function pageLetter(){
       showLetter();
     } else {
       const m=$("#letter-msg");m.className="gate-error";m.textContent="close — try again, my love";
-      setTimeout(()=>{if(m){m.className="gate-hint";m.textContent="only four letters"}},2400);
+      setTimeout(()=>{if(m){m.className="gate-hint";m.textContent="only seven letters"}},2400);
     }
   });
 
   function showLetter(){
     const area=$("#letter-area");
     area.innerHTML=`
-      <article class="letter-paper">
-        <p>my M,</p>
-        <p>i keep starting this letter a hundred different ways and every time it ends the same — with your name.</p>
-        <p>you have a way of making regular days feel like something worth remembering. the little laugh you do when you're not really trying to, the way you tilt your head when you're listening — i notice all of it, all the time.</p>
-        <p>i don't have anything grand to say. just that you're the best thing i keep coming back to. every corner of this little site is a small way of saying: thank you for being here, thank you for being you.</p>
-        <p>and if you're reading this in fullscreen (i hope you are) — smile once for me. that's all i need.</p>
-        <p class="sign">— always yours,<br>ashu ♡</p>
-      </article>
+      <div class="envelope-scene">
+        <div class="envelope" id="envelope">
+          <div class="envelope-back"></div>
+          <div class="envelope-letter" id="env-letter">
+            <i class="fa-solid fa-heart"></i>
+          </div>
+          <div class="envelope-front"></div>
+          <div class="envelope-flap" id="env-flap"></div>
+        </div>
+      </div>
     `;
-    if(typeof window.triggerFireworks==="function")window.triggerFireworks({bursts:3});
+    const env=$("#envelope"), flap=$("#env-flap"), letter=$("#env-letter");
+
+    // Step 1: Envelope lands
+    setTimeout(()=>{ env.classList.add("landed"); },300);
+
+    // Step 2: Flap opens
+    setTimeout(()=>{ flap.classList.add("open"); },1200);
+
+    // Step 3: Letter slides up
+    setTimeout(()=>{ letter.classList.add("rise"); },2000);
+
+    // Step 4: Envelope fades, reveal the real letter
+    setTimeout(()=>{
+      area.classList.add("letter-transition");
+      area.innerHTML=`
+        <div class="letter-reveal-wrap">
+          <div class="letter-glow"></div>
+          <article class="letter-paper letter-animate">
+            <img src="assets/letter.jpg" alt="a handwritten letter for you" class="letter-img" />
+          </article>
+          <div class="letter-hearts" id="letter-hearts"></div>
+        </div>
+      `;
+      // Spawn floating hearts
+      const hc=$("#letter-hearts");
+      for(let i=0;i<12;i++){
+        const h=document.createElement("span");
+        h.className="float-heart";
+        h.innerHTML='<i class="fa-solid fa-heart"></i>';
+        h.style.left=Math.random()*100+"%";
+        h.style.animationDelay=Math.random()*2+"s";
+        h.style.animationDuration=(2.5+Math.random()*2)+"s";
+        h.style.fontSize=(10+Math.random()*14)+"px";
+        hc.appendChild(h);
+      }
+      if(typeof window.triggerFireworks==="function")window.triggerFireworks({bursts:3});
+    },3200);
   }
 }
 
@@ -793,40 +838,55 @@ function pageWishJar(){
   app.innerHTML=`
     <p class="eyebrow">a little jar of feelings</p>
     <h1 class="hero-title">tap the <em>jar</em>.</h1>
-    <p class="hero-sub">every tap, one little thing i've been meaning to say.</p>
+    <p class="hero-sub">every tap, one little thing i've been meaning to say and also few said already.</p>
     <section class="wj-scene">
-      <svg class="wj-jar" id="wj-jar" width="200" height="240" viewBox="0 0 200 240" role="button" aria-label="Draw a wish">
-        <defs>
-          <linearGradient id="jarGlass" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="rgba(244,182,194,0.35)"/>
-            <stop offset="100%" stop-color="rgba(107,63,44,0.35)"/>
-          </linearGradient>
-          <linearGradient id="jarLid" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#e6c78a"/>
-            <stop offset="100%" stop-color="#b98d4a"/>
-          </linearGradient>
-        </defs>
-        <rect x="46" y="18" width="108" height="26" rx="6" fill="url(#jarLid)" stroke="#4a2e22" stroke-width="1.2"/>
-        <rect x="52" y="42" width="96" height="8" rx="3" fill="#6b3f2c"/>
-        <path d="M40 60 Q40 50 50 50 L150 50 Q160 50 160 60 L160 210 Q160 224 146 224 L54 224 Q40 224 40 210 Z" fill="url(#jarGlass)" stroke="#f4b6c2" stroke-width="1.2"/>
-        <text x="100" y="150" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="20" font-style="italic" fill="#f8ecdb" opacity="0.7">tap me</text>
-        <circle cx="75" cy="120" r="5" fill="#f4b6c2" opacity="0.3"/>
-        <circle cx="120" cy="100" r="4" fill="#e6c78a" opacity="0.3"/>
-        <circle cx="90" cy="180" r="6" fill="#e28c9d" opacity="0.25"/>
-        <circle cx="130" cy="170" r="3" fill="#f4b6c2" opacity="0.35"/>
-      </svg>
-      <div id="wish-out"></div>
+      <div class="wj-jar-wrap" id="wj-jar-wrap">
+        <div id="wish-out" class="wish-out"></div>
+        <div class="wj-lid" id="wj-lid">
+          <svg width="200" height="52" viewBox="0 0 200 52">
+            <rect x="46" y="0" width="108" height="26" rx="6" fill="url(#jarLid)" stroke="#4a2e22" stroke-width="1.2"/>
+            <rect x="52" y="24" width="96" height="8" rx="3" fill="#6b3f2c"/>
+          </svg>
+        </div>
+        <svg class="wj-jar" id="wj-jar" width="200" height="200" viewBox="0 0 200 200" role="button" aria-label="Draw a wish">
+          <defs>
+            <linearGradient id="jarGlass" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(244,182,194,0.35)"/>
+              <stop offset="100%" stop-color="rgba(107,63,44,0.35)"/>
+            </linearGradient>
+            <linearGradient id="jarLid" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#e6c78a"/>
+              <stop offset="100%" stop-color="#b98d4a"/>
+            </linearGradient>
+          </defs>
+          <path d="M40 20 Q40 10 50 10 L150 10 Q160 10 160 20 L160 170 Q160 184 146 184 L54 184 Q40 184 40 170 Z" fill="url(#jarGlass)" stroke="#f4b6c2" stroke-width="1.2"/>
+          <text x="100" y="110" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="20" font-style="italic" fill="#f8ecdb" opacity="0.7">tap me</text>
+          <circle cx="75" cy="80" r="5" fill="#f4b6c2" opacity="0.3"/>
+          <circle cx="120" cy="60" r="4" fill="#e6c78a" opacity="0.3"/>
+          <circle cx="90" cy="140" r="6" fill="#e28c9d" opacity="0.25"/>
+          <circle cx="130" cy="130" r="3" fill="#f4b6c2" opacity="0.35"/>
+        </svg>
+      </div>
     </section>
   `;
   const jar=$("#wj-jar");
-  jar.addEventListener("click",()=>{
+  const lid=$("#wj-lid");
+  const wrap=$("#wj-jar-wrap");
+  wrap.addEventListener("click",()=>{
     jar.classList.remove("shake");void jar.offsetWidth;jar.classList.add("shake");
+    // Pop the lid
+    lid.classList.remove("pop");void lid.offsetWidth;lid.classList.add("pop");
     const pool=WISHES.filter((_,i)=>!used.includes(i));
-    if(pool.length===0){used=[];$("#wish-out").innerHTML=`<div class="wj-msg">(refilled the jar for you) tap again</div>`;return}
-    const pickInPool=Math.floor(Math.random()*pool.length);
-    const originalIdx=WISHES.indexOf(pool[pickInPool]);
-    used.push(originalIdx);
-    $("#wish-out").innerHTML=`<div class="wj-msg">"${esc(pool[pickInPool])}"</div>`;
+    const out=$("#wish-out");
+    // Clear previous and wait for lid to open before showing msg
+    out.innerHTML="";
+    setTimeout(()=>{
+      if(pool.length===0){used=[];out.innerHTML=`<div class="wj-msg wj-msg-rise">(refilled the jar for you) tap again</div>`;return}
+      const pickInPool=Math.floor(Math.random()*pool.length);
+      const originalIdx=WISHES.indexOf(pool[pickInPool]);
+      used.push(originalIdx);
+      out.innerHTML=`<div class="wj-msg wj-msg-rise">"${esc(pool[pickInPool])}"</div>`;
+    },250);
   });
 }
 
@@ -944,7 +1004,7 @@ function pageGame(){
     render();
     function render(){
       if(qi>=QUIZ_QS.length){
-        area.innerHTML=`<div class="quiz-done" style="text-align:center;"><h4>you know ashu by heart. ♡</h4><p>that's love, M. that's us.</p><div id="quiz-reveal-board" style="margin-top:24px;width:100%;max-width:500px;margin-inline:auto;"></div></div>`;
+        area.innerHTML=`<div class="quiz-done" style="text-align:center;"><h4>you know Ashu by heart. ♡</h4><p>that's love, M. that's us.</p><div id="quiz-reveal-board" style="margin-top:24px;width:100%;max-width:500px;margin-inline:auto;"></div></div>`;
         done.quiz=true;renderTabs();toast("quiz complete ♡");
         if(typeof window.triggerFireworks==="function")window.triggerFireworks({bursts:2});
         pixelReveal($("#quiz-reveal-board"), "assets/memorymatch/reveal2.jpg");
