@@ -19,9 +19,16 @@
   <!-- Big M background -->
   <div class="m-bg" aria-hidden="true">
     <svg viewBox="0 0 600 700" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="mRoseGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#f4b6c2" />
+          <stop offset="50%" stop-color="#e28c9d" />
+          <stop offset="100%" stop-color="#b45067" />
+        </linearGradient>
+      </defs>
       <text x="50%" y="55%" dominant-baseline="central" text-anchor="middle"
             font-family="'Cormorant Garamond',Georgia,serif" font-size="680" font-weight="700"
-            fill="currentColor" opacity="1">M</text>
+            fill="url(#mRoseGradient)" opacity="1">M</text>
     </svg>
   </div>
 

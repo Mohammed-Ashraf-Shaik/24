@@ -37,19 +37,46 @@
 }
 
 /* ========= Reset ========= */
+/* ========= Reset & Premium Romantic Background ========= */
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; min-height: 100vh; }
 body {
   font-family: var(--sans);
   color: var(--ink-1);
-  background:
-    radial-gradient(1000px 700px at 80% -10%, #45222d 0%, transparent 55%),
-    radial-gradient(900px 600px at -10% 110%, #2a1610 0%, transparent 60%),
-    var(--bg-0) fixed;
+  background-color: #0d060b;
+  background-image: 
+    radial-gradient(1200px 900px at 85% -10%, rgba(110, 35, 65, 0.45) 0%, transparent 60%),
+    radial-gradient(1000px 800px at -10% 110%, rgba(85, 35, 25, 0.45) 0%, transparent 60%),
+    radial-gradient(900px 700px at 50% 50%, rgba(65, 20, 45, 0.35) 0%, transparent 70%),
+    linear-gradient(180deg, #140a10 0%, #0d060b 100%);
+  background-attachment: fixed;
   overflow-x: hidden;
   line-height: 1.55;
   cursor: none;
+  position: relative;
 }
+
+/* Dynamic Romantic Aurora Glow overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 40% 40%, rgba(244, 182, 194, 0.08) 0%, transparent 40%),
+              radial-gradient(circle at 70% 60%, rgba(230, 199, 138, 0.06) 0%, transparent 45%);
+  animation: romanticAurora 24s ease-in-out infinite alternate;
+  filter: blur(40px);
+}
+
+@keyframes romanticAurora {
+  0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50%  { transform: translate(-30px, 20px) scale(1.08) rotate(3deg); }
+  100% { transform: translate(30px, -20px) scale(1.03) rotate(-3deg); }
+}
+
 img { max-width: 100%; display: block; }
 h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; letter-spacing: -0.01em; color: var(--ink-0); margin: 0; }
 button { font: inherit; color: inherit; }
@@ -70,19 +97,17 @@ a { color: var(--rose-1); text-decoration: none; }
   height: 92vmin;
   max-width: 1300px;
   max-height: 1300px;
-  opacity: 0.12;
-  color: var(--rose-2);
-  fill: var(--rose-2);
-  filter: drop-shadow(0 0 40px rgba(244, 182, 194, 0.5));
-  animation: mRomantic 12s ease-in-out infinite;
+  opacity: 0.16;
+  color: var(--rose-1);
+  filter: drop-shadow(0 0 50px rgba(244, 182, 194, 0.65)) drop-shadow(0 0 100px rgba(226, 140, 157, 0.3));
+  animation: mRomantic 10s ease-in-out infinite;
 }
 
 @keyframes mRomantic {
-  0%   { opacity: 0.08; transform: translateY(-6px) rotate(-0.3deg) scale(1);    filter: drop-shadow(0 0 30px rgba(244,182,194,0.35)); }
-  25%  { opacity: 0.14; transform: translateY(0)    rotate(0deg)    scale(1.04); filter: drop-shadow(0 0 50px rgba(244,182,194,0.55)); }
-  50%  { opacity: 0.10; transform: translateY(6px)  rotate(0.3deg)  scale(1.02); filter: drop-shadow(0 0 35px rgba(244,182,194,0.4));  }
-  75%  { opacity: 0.15; transform: translateY(0)    rotate(-0.1deg) scale(1.06); filter: drop-shadow(0 0 55px rgba(244,182,194,0.6));  }
-  100% { opacity: 0.08; transform: translateY(-6px) rotate(-0.3deg) scale(1);    filter: drop-shadow(0 0 30px rgba(244,182,194,0.35)); }
+  0%   { opacity: 0.12; transform: translateY(-8px) rotate(-0.5deg) scale(1); filter: drop-shadow(0 0 40px rgba(244,182,194,0.45)); }
+  33%  { opacity: 0.20; transform: translateY(0) rotate(0deg) scale(1.05); filter: drop-shadow(0 0 65px rgba(244,182,194,0.75)); }
+  66%  { opacity: 0.15; transform: translateY(8px) rotate(0.5deg) scale(1.02); filter: drop-shadow(0 0 45px rgba(244,182,194,0.5)); }
+  100% { opacity: 0.12; transform: translateY(-8px) rotate(-0.5deg) scale(1); filter: drop-shadow(0 0 40px rgba(244,182,194,0.45)); }
 }
 
 /* ========= Petal / heart canvas ========= */
