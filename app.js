@@ -960,24 +960,26 @@ function pageGame(){
 /* ==================== PIXEL REVEAL ==================== */
 function pixelReveal(boardElement) {
   const w = boardElement.clientWidth || 400;
-  const h = boardElement.clientHeight || 400;
-  
-  const canvas = document.createElement("canvas");
-  canvas.width = w;
-  canvas.height = h;
-  canvas.style.width = "100%";
-  canvas.style.height = h + "px";
-  canvas.style.borderRadius = "12px";
-  
-  boardElement.innerHTML = "";
-  boardElement.style.display = "block";
-  boardElement.appendChild(canvas);
-  
-  const ctx = canvas.getContext("2d");
   
   const img = new Image();
   img.src = "assets/memorymatch/reveal.jpg";
   img.onload = () => {
+    const imgAspect = img.width / img.height;
+    const h = Math.round(w / imgAspect);
+    
+    const canvas = document.createElement("canvas");
+    canvas.width = w;
+    canvas.height = h;
+    canvas.style.width = "100%";
+    canvas.style.height = h + "px";
+    canvas.style.borderRadius = "12px";
+    
+    boardElement.innerHTML = "";
+    boardElement.style.display = "block";
+    boardElement.appendChild(canvas);
+    
+    const ctx = canvas.getContext("2d");
+    
     const blockSize = 20; // 20x20 pixel blocks
     const cols = Math.ceil(w / blockSize);
     const rows = Math.ceil(h / blockSize);
@@ -1000,26 +1002,10 @@ function pixelReveal(boardElement) {
         const x = blk.c * blockSize;
         const y = blk.r * blockSize;
         
-        const imgAspect = img.width / img.height;
-        const canvasAspect = w / h;
-        let sx, sy, sw, sh;
-        
-        if (imgAspect > canvasAspect) {
-          sh = img.height;
-          sw = img.height * canvasAspect;
-          sx = (img.width - sw) / 2;
-          sy = 0;
-        } else {
-          sw = img.width;
-          sh = img.width / canvasAspect;
-          sx = 0;
-          sy = (img.height - sh) / 2;
-        }
-        
-        const srcX = sx + (x / w) * sw;
-        const srcY = sy + (y / h) * sh;
-        const srcW = (blockSize / w) * sw;
-        const srcH = (blockSize / h) * sh;
+        const srcX = (x / w) * img.width;
+        const srcY = (y / h) * img.height;
+        const srcW = (blockSize / w) * img.width;
+        const srcH = (blockSize / h) * img.height;
         
         ctx.drawImage(img, srcX, srcY, srcW, srcH, x, y, blockSize, blockSize);
       }
@@ -1030,8 +1016,8 @@ function pixelReveal(boardElement) {
         const finalImg = document.createElement("img");
         finalImg.src = img.src;
         finalImg.style.width = "100%";
-        finalImg.style.height = h + "px";
-        finalImg.style.objectFit = "cover";
+        finalImg.style.height = "auto";
+        finalImg.style.display = "block";
         finalImg.style.borderRadius = "12px";
         finalImg.style.animation = "fade-in 1s forwards";
         
