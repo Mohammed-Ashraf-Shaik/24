@@ -881,6 +881,7 @@ function pageGame(){
             if(typeof window.triggerFireworks==="function")window.triggerFireworks({bursts:2});
             pixelReveal(board);
           }
+        } else {
           setTimeout(()=>{board.querySelectorAll(".mm-card").forEach(c=>{if([a,b].includes(+c.dataset.idx))c.classList.remove("flipped")});flipped=[]},900);
         }
       }
